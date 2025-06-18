@@ -7,6 +7,7 @@ const ROUTES = {
   AUTH_CALLBACK: "/auth/callback",
   WAITING_VERIFICATION: "/waiting-verification",
   CREATE_EVENT: "/create-event",
+  VIDEO_PREVIEW_PAGE: "/video_preview",
 };
 
 const LOGIN_TYPE = {

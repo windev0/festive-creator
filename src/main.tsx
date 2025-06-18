@@ -17,6 +17,7 @@ import { Toaster } from "sonner";
 import ProtectedRoute from "@/components/ProtectedRoutes.tsx";
 import HomePage from "@/features/home/pages/Home.page.tsx";
 import CreateEventForm from "@/features/event/components/CreateEventForm.tsx";
+import VideoPreviewPage from "@/features/event/pages/VideoPreviewPage.tsx";
 
 createRoot(document.getElementById("root")!).render(
   <StrictMode>
@@ -46,6 +47,14 @@ createRoot(document.getElementById("root")!).render(
           element={
             <ProtectedRoute>
               <CreateEventForm />
+            </ProtectedRoute>
+          }
+        />
+        <Route
+          path={ROUTES.VIDEO_PREVIEW_PAGE}
+          element={
+            <ProtectedRoute>
+              <VideoPreviewPage />
             </ProtectedRoute>
           }
         />
