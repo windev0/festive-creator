@@ -2,23 +2,23 @@ import { type Models } from "appwrite";
 
 interface User extends Models.User<Models.Preferences> {}
 
-interface LoginData {
+interface ILoginData {
   email: string;
   password: string;
   username?: string; // Optional, in case you want to include username for login
 }
 
-interface RegisterData {
+interface IRegisterData {
   username?: string;
   email: string;
   password: string;
 }
 
-interface ResetPasswordData {
+interface IResetPasswordData {
   email: string;
 }
 
-type AppwriteError = {
+type IAppwriteError = {
   message: string;
   code: number;
   type: string;
@@ -63,10 +63,10 @@ interface VerifyEmailData {
 }
 
 export type {
-  LoginData,
-  RegisterData,
-  ResetPasswordData,
+  ILoginData as LoginData,
+  IRegisterData as RegisterData,
+  IResetPasswordData as ResetPasswordData,
   User,
   VerifyEmailData,
-  AppwriteError,
+  IAppwriteError as AppwriteError,
 };

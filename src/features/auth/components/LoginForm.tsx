@@ -178,7 +178,7 @@ export function LoginForm({
                     required
                   />
                 </div>
-                <Button type="submit" className="w-full">
+                <Button type="submit" className="w-full cursor-pointer">
                   Login
                 </Button>
               </div>

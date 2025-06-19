@@ -1,14 +1,6 @@
-import VideoGenerator from "@/features/event/components/VideoGenerator";
-import { useLocation } from "react-router-dom";
-
-interface VideoPreviewProps {
-  musicId: string;
-  photoIds: string[];
-  duration: string;
-}
 export default function VideoPreviewPage() {
-  const { state } = useLocation();
-  const { musicId, photoIds, duration } = state as VideoPreviewProps;
+  // const { state } = useLocation();
+  // const { musicId, photoIds, duration } = state as VideoPreviewProps;
 
   //   const data = {
   //     musicId: "30941b91-4c72-4d4c-8ef2-a50944420c34",
@@ -24,7 +16,7 @@ export default function VideoPreviewPage() {
       <h1 className="text-2xl font-bold text-center mb-4">
         🎥 Aperçu de votre vidéo festive
       </h1>
-      <VideoGenerator duration={duration} musicId={musicId} photoIds={photoIds} />
+      {/* <VideoGenerator duration={duration} musicId={musicId} photoIds={photoIds} /> */}
     </div>
   );
 }

@@ -1,5 +1,5 @@
 import type { User } from "@/auth/utils/types";
-import type { customToastMsg } from "@/utils/type";
+import type { customToastMsgType } from "@/utils/type";
 import { toast } from "sonner";
 
 function isAuthenticated(): boolean {
@@ -11,7 +11,7 @@ export function customToastMsg({
   msg,
   className,
   description,
-}: customToastMsg): any {
+}: customToastMsgType): any {
   return toast(msg, {
     position: "top-center",
     className,

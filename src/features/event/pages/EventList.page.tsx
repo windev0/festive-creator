@@ -1,61 +1,47 @@
 import { useEffect, useState } from "react";
-import { collectionId, databaseId, databases } from "@/lib/appwrite";
-
-interface Event {
-  $id: string;
-  title: string;
-  description: string;
-  image: string;
-  date: string;
-  $createdAt: string;
-  $updatedAt: string;
-}
+import { getEvents } from "@/features/event/services/event.service";
+import type { IEvent } from "@/features/event/utils/types";
+import EventCard from "@/features/event/components/EventCard";
 
 const EventListPage = () => {
-  const [events, setEvents] = useState<Event[] | any>([]);
+  const [events, setEvents] = useState<IEvent[]>([]);
   const [loading, setLoading] = useState(true);
-
-  const getEvents = async () => {
-    try {
-      const data = await databases
-        .listDocuments(databaseId, collectionId)
-        .then((resp) => resp.documents);
-      setEvents(data);
-    } catch (error) {
-      console.error("Erreur lors du chargement des événements :", error);
-    } finally {
-      setLoading(false);
-    }
-  };
+  const [error, setError] = useState("");
 
   useEffect(() => {
-    getEvents();
+    setLoading(true);
+    getEvents().then((resp) => {
+      const { data, error } = resp;
+      if (data) {
+        setEvents(data as IEvent[]);
+        setLoading(false);
+      } else if (error) {
+        setError(error);
+        setLoading(false);
+      }
+    });
   }, []);
 
-  if (loading) return <p>Chargement...</p>;
+  if (loading)
+    return <div className="text-center py-10 text-lg">Chargement...</div>;
+  if (error)
+    return <div className="text-center text-red-500 py-10">{error}</div>;
 
   return (
-    <div>
-      <h2>Événements festifs 🎉</h2>
-      <ul>
-        {events.map((event: Event) => (
-          <li key={event.$id}>
-            <h3>{event.title}</h3>
-            <p>{event.description}</p>
-            <small>{event.date}</small>
-            <br />
-            <small>cret {event.$createdAt}</small>
-            <br />
-
-            <small>updt {event.$updatedAt}</small>
-            <br />
-
-            <img src={event.image} alt="image" height={80} width={80} />
-          </li>
+    <div className="flex p-4 flex-col items-center py-8 bg-gray-50 min-h-screen">
+      <h2 className="text-2xl font-bold mb-8 text-pink-700">
+      Événements festifs 🎉
+      </h2>
+      {events.length === 0 ? (
+      <p className="text-gray-500">Aucun événement trouvé.</p>
+      ) : (
+      <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-4 w-full max-w-5xl">
+        {events.map((event) => (
+        <EventCard key={event.$id} event={event} />
         ))}
-      </ul>
+      </div>
+      )}
     </div>
   );
 };
-
 export default EventListPage;

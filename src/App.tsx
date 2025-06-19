@@ -6,7 +6,6 @@ function App() {
 
   return (
     <MainLayout>
-      <h1>Hello world</h1>
       <EventListPage />
     </MainLayout>
   );
