@@ -12,7 +12,7 @@ const endpoint = import.meta.env.VITE_APPWRITE_ENDPOINT;
 const databaseId = import.meta.env.VITE_FESTIVE_DATABASE_ID;
 const collectionId = import.meta.env.VITE_EVENTS_COLLECTION_ID;
 const storageBucketId = import.meta.env.VITE_EVENT_STORAGE_BUCKET_ID;
-// const videoBucketId = import.meta.env.VITE_EVENT_STORAGE_BUCKET_ID;
+const appBaseURL = import.meta.env.VITE_BASE_URL;
 const videoBucketId = import.meta.env.VITE_EVENT_STORAGE_BUCKET_ID;
 
 client.setEndpoint(endpoint!).setProject(projectId!); // Replace with your project ID
@@ -41,6 +41,7 @@ const uploadFile = async (file: File, bucketId?: string): Promise<string> => {
 // };
 
 export {
+  appBaseURL,
   client,
   account,
   databases,

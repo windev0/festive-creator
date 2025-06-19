@@ -34,3 +34,17 @@ export function getFileUrl(fileId: string): {
     return { error: error?.message };
   }
 }
+
+export async function getEventData(
+  eventId: string
+): Promise<{ eventData?: Models.Document; error?: string }> {
+  try {
+    const data = await databases
+      .getDocument(databaseId, collectionId, eventId)
+      .then((resp) => resp.documents);
+    return { eventData: data };
+  } catch (error: any) {
+    console.error("Erreur lors du chargement des événements :", error);
+    return { error: error?.message };
+  }
+}

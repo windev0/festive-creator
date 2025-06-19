@@ -60,7 +60,7 @@ export function LoginForm({
           return;
         }
         if (user?.emailVerification) {
-          navigate(ROUTES.APP, { replace: true }); // il s'agit d'un utilisateur déjà vérifié
+          navigate(ROUTES.EVENTS, { replace: true }); // il s'agit d'un utilisateur déjà vérifié
           return;
         }
 

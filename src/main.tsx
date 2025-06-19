@@ -1,10 +1,6 @@
 import { StrictMode } from "react";
 import { createRoot } from "react-dom/client";
-import {
-  Route,
-  BrowserRouter as Router,
-  Routes,
-} from "react-router-dom";
+import { Route, BrowserRouter as Router, Routes } from "react-router-dom";
 
 import "./App.css";
 import App from "./App.tsx";
@@ -18,6 +14,7 @@ import ProtectedRoute from "@/components/ProtectedRoutes.tsx";
 import HomePage from "@/features/home/pages/Home.page.tsx";
 import CreateEventForm from "@/features/event/components/CreateEventForm.tsx";
 import VideoPreviewPage from "@/features/event/pages/VideoPreviewPage.tsx";
+import ViewEventPage from "@/features/event/pages/ViewEvent.page.tsx";
 
 createRoot(document.getElementById("root")!).render(
   <StrictMode>
@@ -32,10 +29,11 @@ createRoot(document.getElementById("root")!).render(
           element={<WaitingVerificationPage />}
         />
         <Route path={ROUTES.HOME} element={<HomePage />} />
+        <Route path={ROUTES.EVENT_SHARED} element={<ViewEventPage />} />
 
         {/* Protected routes */}
         <Route
-          path={ROUTES.APP}
+          path={ROUTES.EVENTS}
           element={
             <ProtectedRoute>
               <App />

@@ -8,6 +8,8 @@ const ROUTES = {
   WAITING_VERIFICATION: "/waiting-verification",
   CREATE_EVENT: "/create-event",
   VIDEO_PREVIEW_PAGE: "/video_preview",
+  EVENT_SHARED: "/events/shared",
+  EVENTS : "/events"
 };
 
 const LOGIN_TYPE = {
