@@ -61,7 +61,7 @@ export default async function handler(req: VercelRequest, res: VercelResponse) {
     );
 
     // const imageUrl = `https://cloud.appwrite.io/v1/storage/buckets/${bucketId}/files/${event.photoIds?.[0]}/preview?width=1200&height=630`;
-    const imageUrl = `${getFileUrl(event.photoIds?.[0])}?width=1200&height=630`;
+    const imageUrl = `${getFileUrl(event.photoIds?.[0])}`;
 
     const html = `
       <!DOCTYPE html>
