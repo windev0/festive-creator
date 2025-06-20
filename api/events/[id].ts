@@ -12,22 +12,43 @@ const storage = new Storage(client);
 const bucketId = process.env.VITE_EVENT_STORAGE_BUCKET_ID;
 const baseUrl = process.env.VITE_BASE_URL;
 
-function getFileUrl(fileId: string): {
-  url?: string;
-  error?: string;
-} {
+function getFileUrl(fileId: string): string {
   try {
-    const url = storage.getFileView(bucketId!, fileId);
-    return { url };
+    return storage.getFileView(bucketId!, fileId);
   } catch (error: any) {
     console.log("getFileUrl error", error);
-    return { error: error?.message };
+    return error?.message;
   }
 }
 
 export default async function handler(req: VercelRequest, res: VercelResponse) {
   const eventId = req.query.id as string;
 
+  // if (eventId) {
+  //   const html = `
+  //     <!DOCTYPE html>
+  //     <html lang="fr">
+  //     <head>
+  //       <meta charset="UTF-8" />
+  //       <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  //       <title>hello</title>
+  //       <meta property="og:title" content="hello" />
+  //       <meta property="og:description" content="babababab" />
+  //       <meta property="og:image" content="" />
+  //       <meta property="og:url" content="https://tonsite.com/event/" />
+  //       <meta name="twitter:card" content="summary_large_image" />
+  //     </head>
+  //     <body>
+  //       Redirection vers l’événement...
+  //       hello
+  //       <p>
+  //         hello
+  //       </p>
+  //     </body>
+  //     </html>
+  //   `;
+  //   return res.send(html);
+  // }
   if (!eventId) {
     return res.status(400).send("ID manquant");
   }
@@ -40,7 +61,7 @@ export default async function handler(req: VercelRequest, res: VercelResponse) {
     );
 
     // const imageUrl = `https://cloud.appwrite.io/v1/storage/buckets/${bucketId}/files/${event.photoIds?.[0]}/preview?width=1200&height=630`;
-    const imageUrl = `${getFileUrl(eventId)?.url}?width=1200&height=630`;
+    const imageUrl = `${getFileUrl(eventId)}?width=1200&height=630`;
 
     const html = `
       <!DOCTYPE html>
@@ -52,7 +73,7 @@ export default async function handler(req: VercelRequest, res: VercelResponse) {
         <meta property="og:title" content="${event.title}" />
         <meta property="og:description" content="${event.message}" />
         <meta property="og:image" content="${imageUrl}" />
-        <meta property="og:url" content="https://tonsite.com/event/${event.$id}" />
+        <meta property="og:url" content="${baseUrl}/events/${event.$id}" />
         <meta name="twitter:card" content="summary_large_image" />
       </head>
       <body>
@@ -65,6 +86,7 @@ export default async function handler(req: VercelRequest, res: VercelResponse) {
     `;
 
     res.setHeader("Content-Type", "text/html");
+    console.log("object");
     res.send(html);
   } catch (err) {
     res.status(404).send("Événement non trouvé");
