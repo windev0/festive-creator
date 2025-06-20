@@ -10,6 +10,7 @@
           "value": "facebookexternalhit|WhatsApp|LinkedInBot"
         }
       ]
-    }
+    },
+    { "source": "/(.*)", "destination": "/" }
   ]
 }
