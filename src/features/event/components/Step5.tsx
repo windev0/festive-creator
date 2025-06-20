@@ -2,7 +2,7 @@ import { fetchLoggedInUser } from "@/auth/services/login.service";
 import { Badge } from "@/components/ui/badge";
 import type { FormDataType } from "@/features/event/components/CreateEventForm";
 import {
-  collectionId,
+  eventCollectionId,
   databaseId,
   databases,
   uploadFile,
@@ -39,7 +39,7 @@ const Step5 = ({ prev, data }: Props) => {
       // Créer le document dans la collection Appwrite
       const eventID = uuidV4();
       const userId = await fetchLoggedInUser().then((resp) => resp?.$id);
-      await databases.createDocument(databaseId, collectionId, eventID, {
+      await databases.createDocument(databaseId, eventCollectionId, eventID, {
         title,
         category,
         duration,

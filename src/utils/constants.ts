@@ -9,7 +9,8 @@ const ROUTES = {
   CREATE_EVENT: "/create-event",
   VIDEO_PREVIEW_PAGE: "/video_preview",
   EVENT_SHARED: "/events/shared",
-  EVENTS : "/events"
+  EVENTS: "/events",
+  NOT_FOUND: "/404",
 };
 
 const LOGIN_TYPE = {

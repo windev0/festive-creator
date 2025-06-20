@@ -1,5 +1,6 @@
 import { StrictMode } from "react";
 import { createRoot } from "react-dom/client";
+import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import { Route, BrowserRouter as Router, Routes } from "react-router-dom";
 
 import "./App.css";
@@ -16,50 +17,55 @@ import CreateEventForm from "@/features/event/components/CreateEventForm.tsx";
 import VideoPreviewPage from "@/features/event/pages/VideoPreviewPage.tsx";
 import ViewEventPage from "@/features/event/pages/ViewEvent.page.tsx";
 
+const queryClient = new QueryClient();
+
 createRoot(document.getElementById("root")!).render(
   <StrictMode>
-    <Router>
-      <Routes>
-        {/* Public routes */}
-        <Route path={ROUTES.LOGIN} element={<LoginPage />} />
-        <Route path={ROUTES.REGISTER} element={<RegisterPage />} />
-        <Route path={ROUTES.VERIFY} element={<VerificationPage />} />
-        <Route
-          path={ROUTES.WAITING_VERIFICATION}
-          element={<WaitingVerificationPage />}
-        />
-        <Route path={ROUTES.HOME} element={<HomePage />} />
-        <Route path={ROUTES.EVENT_SHARED} element={<ViewEventPage />} />
+    <QueryClientProvider client={queryClient}>
+      <Router>
+        <Routes>
+          {/* Public routes */}
+          <Route path={ROUTES.LOGIN} element={<LoginPage />} />
+          <Route path={ROUTES.REGISTER} element={<RegisterPage />} />
+          <Route path={ROUTES.VERIFY} element={<VerificationPage />} />
+          <Route
+            path={ROUTES.WAITING_VERIFICATION}
+            element={<WaitingVerificationPage />}
+          />
+          <Route path={ROUTES.HOME} element={<HomePage />} />
+          <Route path={ROUTES.EVENT_SHARED} element={<ViewEventPage />} />
+          <Route path={ROUTES.AUTH_CALLBACK} element={<div>call back</div>} />
+          <Route path={ROUTES.NOT_FOUND} element={<div>Not found</div>} />
+          <Route path="*" element={<div>Not found</div>} />
 
-        {/* Protected routes */}
-        <Route
-          path={ROUTES.EVENTS}
-          element={
-            <ProtectedRoute>
-              <App />
-            </ProtectedRoute>
-          }
-        />
-        <Route
-          path={ROUTES.CREATE_EVENT}
-          element={
-            <ProtectedRoute>
-              <CreateEventForm />
-            </ProtectedRoute>
-          }
-        />
-        <Route
-          path={ROUTES.VIDEO_PREVIEW_PAGE}
-          element={
-            <ProtectedRoute>
-              <VideoPreviewPage />
-            </ProtectedRoute>
-          }
-        />
-        <Route path={ROUTES.AUTH_CALLBACK} element={<div>call back</div>} />
-        <Route path="*" element={<div>Not found</div>} />
-      </Routes>
-      <Toaster />
-    </Router>
+          {/* Protected routes */}
+          <Route
+            path={ROUTES.EVENTS}
+            element={
+              <ProtectedRoute>
+                <App />
+              </ProtectedRoute>
+            }
+          />
+          <Route
+            path={ROUTES.CREATE_EVENT}
+            element={
+              <ProtectedRoute>
+                <CreateEventForm />
+              </ProtectedRoute>
+            }
+          />
+          <Route
+            path={ROUTES.VIDEO_PREVIEW_PAGE}
+            element={
+              <ProtectedRoute>
+                <VideoPreviewPage />
+              </ProtectedRoute>
+            }
+          />
+        </Routes>
+        <Toaster />
+      </Router>
+    </QueryClientProvider>
   </StrictMode>
 );

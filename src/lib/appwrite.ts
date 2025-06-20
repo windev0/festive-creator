@@ -10,7 +10,8 @@ const client = new Client();
 const projectId = import.meta.env.VITE_APPWRITE_PROJECT_ID;
 const endpoint = import.meta.env.VITE_APPWRITE_ENDPOINT;
 const databaseId = import.meta.env.VITE_FESTIVE_DATABASE_ID;
-const collectionId = import.meta.env.VITE_EVENTS_COLLECTION_ID;
+const eventCollectionId = import.meta.env.VITE_EVENTS_COLLECTION_ID;
+const commentsCollectionId = import.meta.env.VITE_COMMENTS_COLLECTION_ID;
 const storageBucketId = import.meta.env.VITE_EVENT_STORAGE_BUCKET_ID;
 const appBaseURL = import.meta.env.VITE_BASE_URL;
 const videoBucketId = import.meta.env.VITE_EVENT_STORAGE_BUCKET_ID;
@@ -50,7 +51,8 @@ export {
   projectId,
   endpoint,
   databaseId,
-  collectionId,
+  eventCollectionId,
+  commentsCollectionId,
   storageBucketId,
   videoBucketId,
 };
