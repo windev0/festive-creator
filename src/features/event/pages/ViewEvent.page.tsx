@@ -1,4 +1,4 @@
-import { Navigate, useSearchParams } from "react-router-dom";
+import { Navigate, useParams } from "react-router-dom";
 import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
 
 import {
@@ -17,8 +17,8 @@ import { Button } from "@/components/ui/button";
 import { ROUTES } from "@/utils/constants";
 
 const ViewEventPage = () => {
-  const [searchParams] = useSearchParams();
-  const eventId = searchParams.get("id");
+  const params = useParams();
+  const { id: eventId } = params;
   const queryClient = useQueryClient();
 
   const [name, setName] = useState("");
@@ -27,9 +27,7 @@ const ViewEventPage = () => {
   const [replyName, setReplyName] = useState("");
   const [replyMessage, setReplyMessage] = useState("");
   // const [expandedReplies, setExpandedReplies] = useState<
-  const [expandedReplies, _] = useState<
-    Record<string, boolean>
-  >({});
+  const [expandedReplies, _] = useState<Record<string, boolean>>({});
 
   if (!eventId) return <Navigate to={ROUTES.NOT_FOUND} />;
 

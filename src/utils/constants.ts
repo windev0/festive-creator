@@ -8,7 +8,7 @@ const ROUTES = {
   WAITING_VERIFICATION: "/waiting-verification",
   CREATE_EVENT: "/create-event",
   VIDEO_PREVIEW_PAGE: "/video_preview",
-  EVENT_SHARED: "/events/shared",
+  EVENT_SHARED: "/events/shared/:id",
   EVENTS: "/events",
   NOT_FOUND: "/404",
 };

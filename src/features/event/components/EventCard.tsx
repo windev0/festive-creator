@@ -8,15 +8,14 @@ import {
 
 import { getFileUrl } from "@/features/event/services/event.service";
 import type { IEvent } from "@/features/event/utils/types";
-import { ROUTES } from "@/utils/constants";
 import { customToastMsg } from "@/utils/functions";
 import { MenubarTrigger } from "@radix-ui/react-menubar";
 
 const EventCard = ({ event }: { event: IEvent }) => {
   const handleShareLink = async () => {
-    const publicUrl = `${import.meta.env.VITE_BASE_URL}${
-      ROUTES.EVENT_SHARED
-    }?id=${event.$id}`;
+    const publicUrl = `${import.meta.env.VITE_BASE_URL}/events/shared/${
+      event.$id
+    }`;
     try {
       await navigator.clipboard.writeText(publicUrl);
       customToastMsg({
