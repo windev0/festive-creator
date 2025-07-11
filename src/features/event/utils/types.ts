@@ -31,3 +31,8 @@ export interface VideoPreviewProps {
   photoIds: string[];
   duration: string;
 }
+
+export interface ICategoryItem {
+  key: string;
+  label: string;
+}

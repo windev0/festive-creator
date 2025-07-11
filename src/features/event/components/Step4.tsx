@@ -1,4 +1,4 @@
-import type { FormDataType } from "@/features/event/components/CreateEventForm";
+import type { FormDataType } from "@/features/event/pages/CreateEvent.page";
 
 type Props = {
   next: () => void;

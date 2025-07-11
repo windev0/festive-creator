@@ -3,11 +3,22 @@ import { account } from "@/lib/appwrite"; // <-- adapte le chemin selon ton proj
 import { useNavigate } from "react-router-dom";
 import { ROUTES } from "@/utils/constants";
 import { Button } from "@/components/ui/button";
+import {
+  DropdownMenu,
+  DropdownMenuContent,
+  DropdownMenuItem,
+  DropdownMenuLabel,
+  DropdownMenuSeparator,
+  DropdownMenuTrigger,
+} from "@/components/ui/dropdown-menu"
 import { Menu, X } from "lucide-react";
 import { deleteSessions } from "@/auth/services/login.service";
+import { isAuthenticated } from "@/utils/functions";
 
 const Navbar = () => {
   const [user, setUser] = useState<any>(null);
+  const [isVerified, setisVerified] = useState(isAuthenticated());
+
   const [menuOpen, setMenuOpen] = useState(false);
 
   const navigate = useNavigate();
@@ -47,7 +58,7 @@ const Navbar = () => {
       console.error("Erreur lors de la déconnexion :", error);
     }
   };
-
+  
   return (
     <nav className="w-full bg-gray-800 border-b border-gray-200 py-4 px-6 shadow-sm">
       <div className="flex justify-between items-center max-w-7xl mx-auto">
@@ -56,16 +67,35 @@ const Navbar = () => {
           className="text-xl font-bold text-white cursor-pointer"
           onClick={() => navigate(ROUTES.HOME)}
         >
-          Festi Creator
+          Festify
         </h1>
 
         {/* Desktop menu */}
-        <div className="hidden md:flex items-center gap-4">
+        <div className="hidden md:flex items-center gap-4 text-white">
           {user ? (
             <>
+              <DropdownMenu>
+                <DropdownMenuTrigger>Open</DropdownMenuTrigger>
+                <DropdownMenuContent>
+                  <DropdownMenuLabel>My Account</DropdownMenuLabel>
+                  <DropdownMenuSeparator />
+                  <DropdownMenuItem>Profile</DropdownMenuItem>
+                  <DropdownMenuItem>Billing</DropdownMenuItem>
+                  <DropdownMenuItem>Team</DropdownMenuItem>
+                  <DropdownMenuItem>Subscription</DropdownMenuItem>
+                </DropdownMenuContent>
+              </DropdownMenu>
               <span className="text-sm text-white font-bold">
                 👋 {user.name}
               </span>
+              {isVerified && (
+                <span
+                  onClick={() => navigate(ROUTES.EVENTS)}
+                  className="text-sm text-white font-bold"
+                >
+                  Dashboard
+                </span>
+              )}
               <button
                 onClick={handleLogout}
                 className="px-3 py-1 bg-red-700 cursor-pointer text-white rounded hover:bg-red-600 transition"

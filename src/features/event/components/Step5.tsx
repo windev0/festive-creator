@@ -1,6 +1,6 @@
 import { fetchLoggedInUser } from "@/auth/services/login.service";
 import { Badge } from "@/components/ui/badge";
-import type { FormDataType } from "@/features/event/components/CreateEventForm";
+import type { FormDataType } from "@/features/event/pages/CreateEvent.page";
 import {
   eventCollectionId,
   databaseId,

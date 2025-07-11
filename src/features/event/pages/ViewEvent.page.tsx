@@ -15,13 +15,15 @@ import { useState } from "react";
 import { Input } from "@/components/ui/input"; // Si tu utilises shadcn/ui
 import { Button } from "@/components/ui/button";
 import { ROUTES } from "@/utils/constants";
+import type { User } from "@/auth/utils/types";
 
 const ViewEventPage = () => {
   const params = useParams();
   const { id: eventId } = params;
   const queryClient = useQueryClient();
+  const user: User = JSON.parse(window.localStorage.getItem("user") ?? "null");
 
-  const [name, setName] = useState("");
+  const [name, setName] = useState(user?.name);
   const [message, setMessage] = useState("");
   const [replyingTo, setReplyingTo] = useState<string | null>(null);
   const [replyName, setReplyName] = useState("");

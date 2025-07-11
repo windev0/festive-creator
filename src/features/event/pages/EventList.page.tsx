@@ -30,7 +30,7 @@ const EventListPage = () => {
   return (
     <div className="flex p-4 flex-col items-center py-8 bg-gray-50 min-h-screen">
       <h2 className="text-2xl font-bold mb-8 text-pink-700">
-      Événements festifs 🎉
+      Mes évènements 🎉
       </h2>
       {events.length === 0 ? (
       <p className="text-gray-500">Aucun événement trouvé.</p>

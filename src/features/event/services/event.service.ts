@@ -16,7 +16,9 @@ export const getEvents = async (): Promise<{
 }> => {
   try {
     const data = await databases
-      .listDocuments(databaseId, eventCollectionId)
+      .listDocuments(databaseId, eventCollectionId, [
+        Query.orderDesc("$createdAt"),
+      ])
       .then((resp) => resp.documents);
     return { data };
   } catch (error: any) {

@@ -1,4 +1,5 @@
-import type { FormDataType } from "@/features/event/components/CreateEventForm";
+import type { FormDataType } from "@/features/event/pages/CreateEvent.page";
+import { FestiveEventCategory } from "@/features/event/utils/constants";
 
 type Props = {
   next: () => void;
@@ -46,9 +47,13 @@ const Step1 = ({ next, data, updateForm }: Props) => {
             className="w-full border border-blue-200 focus:border-blue-500 focus:ring-2 focus:ring-blue-100 p-3 rounded-lg outline-none transition bg-white text-gray-700 text-base"
           >
             <option value="">Sélectionner un type</option>
-            <option value="anniversaire">Anniversaire</option>
-            <option value="félicitations">Félicitations</option>
-            <option value="naissance">Naissance</option>
+            {FestiveEventCategory.map(({ key, label }) => (
+              <option key={key} value={label}>
+                {label}
+              </option>
+            ))}
+            {/* <option value="félicitations">Félicitations</option>
+            <option value="naissance">Naissance</option> */}
           </select>
 
           <select
