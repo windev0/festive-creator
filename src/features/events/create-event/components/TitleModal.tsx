@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 
 import {
   AlertDialog,
@@ -35,9 +35,14 @@ const TitleModal = ({
 }: TitleModalProps) => {
   const [typeTitle, setTypeTitle] = useState(false);
 
+  useEffect(() => {
+    if (title && !examples.includes(title)) {
+      setTypeTitle(true);
+    }
+  }, [title, onExampleSelect]);
+
   const handleTitleSelect = (example: string) => {
     onExampleSelect(example);
-    // if (setOpen) setOpen(false);
   };
 
   const handleCancel = () => {
@@ -62,23 +67,30 @@ const TitleModal = ({
                 événement.
               </AlertDialogDescription>
             </AlertDialogHeader>
-            <div className="space-y-2 my-4">
-              {examples.map((example, index) => (
-                <Button
-                  key={index}
-                  disabled={typeTitle}
-                  variant="outline"
-                  color={`primary`}
-                  className="w-full justify-start "
-                  onClick={() => handleTitleSelect(example)}
-                >
-                  {example}
-                </Button>
-              ))}
+            <div className="space-y-2 my-4 overflow-y-scroll">
+              {examples.map((example, index) => {
+                const isSelectedStyle =
+                  title === example
+                    ? "bg-green-100 text-primary"
+                    : "bg-gray-100 text-primary";
+                return (
+                  <Button
+                    key={index}
+                    disabled={typeTitle}
+                    variant="outline"
+                    color={`primary`}
+                    className={`w-full justify-start ${isSelectedStyle} `}
+                    onClick={() => handleTitleSelect(example)}
+                  >
+                    <span className="wrap-normal">{example}</span>
+                  </Button>
+                );
+              })}
               <p>Ou</p>
               <div className="flex items-center mt-3 gap-3">
                 <Checkbox
                   id="title"
+                  checked={typeTitle}
                   onCheckedChange={(value) => {
                     setTypeTitle(value === true);
                     return value;
@@ -89,6 +101,7 @@ const TitleModal = ({
                   <>
                     <Input
                       type="text"
+                      defaultValue={title}
                       placeholder="Entrez votre titre personnalisé"
                       className="input input-bordered w-full"
                       onChange={(e) => handleTitleSelect(e.target.value)}
