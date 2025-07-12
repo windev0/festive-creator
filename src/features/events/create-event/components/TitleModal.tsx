@@ -71,8 +71,8 @@ const TitleModal = ({
               {examples.map((example, index) => {
                 const isSelectedStyle =
                   title === example
-                    ? "bg-green-100 text-primary"
-                    : "bg-gray-100 text-primary";
+                    ? "bg-green-100 text-primary hover:bg-green-200"
+                    : "bg-gray-100 text-primary hover:bg-gray-200";
                 return (
                   <Button
                     key={index}
