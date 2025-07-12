@@ -13,7 +13,6 @@ import WaitingVerificationPage from "@/auth/pages/WaitingVerification.page.tsx";
 import { Toaster } from "sonner";
 import ProtectedRoute from "@/components/ProtectedRoutes.tsx";
 import HomePage from "@/features/home/pages/Home.page.tsx";
-import CreateEventForm from "@/features/event/pages/CreateEvent.page.tsx";
 import VideoPreviewPage from "@/features/event/pages/VideoPreviewPage.tsx";
 import ViewEventPage from "@/features/event/pages/ViewEvent.page.tsx";
 import CreateEventPage from "@/features/events/create-event/pages/CreateEventPage.tsx";
