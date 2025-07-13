@@ -52,13 +52,13 @@ const TitleModal = ({
   };
   return (
     <>
-      <div className="overflow-scroll">
+      <div className="">
         <AlertDialog open={open}>
           <AlertDialogContent>
             <AlertDialogHeader>
               <AlertDialogTitle>
                 Choisissez un titre d'événement: {"   "}
-                <Badge color="blue">
+                <Badge className="bg-indigo-400">
                   {selectedEventCategory?.toUpperCase() || "votre événement"}
                 </Badge>
               </AlertDialogTitle>
@@ -67,7 +67,7 @@ const TitleModal = ({
                 événement.
               </AlertDialogDescription>
             </AlertDialogHeader>
-            <div className="space-y-2 my-4 overflow-y-scroll">
+            <div className="space-y-2 my-2 overflow-y-scroll">
               {examples.map((example, index) => {
                 const isSelectedStyle =
                   title === example

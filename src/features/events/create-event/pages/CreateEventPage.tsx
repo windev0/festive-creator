@@ -38,7 +38,7 @@ const CreateEventPage = () => {
 
   // Load saved draft on component mount
   useEffect(() => {
-    console.log('step', step);
+    console.log("step", step);
     const savedDraft = localStorage.getItem("cardCreationDraft");
     if (savedDraft) {
       try {
@@ -277,7 +277,7 @@ const CreateEventPage = () => {
             </div>
             <div className="w-full bg-muted rounded-full h-2">
               <div
-                className="bg-primary h-2 rounded-full transition-all duration-300"
+                className="bg-indigo-600 h-2 rounded-full transition-all duration-300"
                 style={{ width: `${(currentStep / totalSteps) * 100}%` }}
               />
             </div>

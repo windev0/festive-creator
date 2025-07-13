@@ -58,11 +58,11 @@ const ProgressIndicator = ({
                   key={index}
                   onClick={() => handleStepClick(step.id)}
                   disabled={!isClickable}
-                  className={`flex items-center space-x-2 px-3 py-2 rounded-md text-sm font-medium transition-all duration-200 ${
+                  className={`flex  items-center space-x-2 px-3 py-2 rounded-md text-sm font-medium transition-all duration-200 ${
                     isActive
-                      ? "text-primary bg-primary/10"
+                      ? "text-indigo-600 cursor-pointer bg-indigo-600/10"
                       : isCompleted
-                      ? "text-success hover:text-success/80"
+                      ? "text-green-600 cursor-pointer hover:text-green-600/80"
                       : isClickable
                       ? "text-muted-foreground hover:text-foreground hover:bg-muted"
                       : "text-muted-foreground/50 cursor-not-allowed"
@@ -71,9 +71,9 @@ const ProgressIndicator = ({
                   <div
                     className={`flex items-center justify-center w-6 h-6 rounded-full border-2 transition-colors duration-200 ${
                       isActive
-                        ? "border-primary bg-primary text-primary-foreground"
+                        ? "border-indigo-400 bg-indigo-400 text-primary-foreground"
                         : isCompleted
-                        ? "border-success bg-success text-success-foreground"
+                        ? "border-green-600 bg-green-600 text-white"
                         : "border-muted-foreground/30"
                     }`}
                   >
@@ -93,7 +93,7 @@ const ProgressIndicator = ({
           <div className="md:hidden flex-1 mr-4">
             <div className="flex items-center justify-between mb-2">
               <span className="text-sm font-medium text-foreground">
-                Step {currentStep} of {totalSteps}
+                Etape {currentStep} sur {totalSteps}
               </span>
               <span className="text-sm text-muted-foreground">
                 {progressSteps[currentStep - 1]?.label}
@@ -101,7 +101,7 @@ const ProgressIndicator = ({
             </div>
             <div className="w-full bg-muted rounded-full h-2">
               <div
-                className="bg-primary h-2 rounded-full transition-all duration-300 ease-out"
+                className=" h-2 rounded-full transition-all duration-300 ease-out bg-indigo-600"
                 style={{ width: `${progressPercentage}%` }}
               />
             </div>
@@ -143,9 +143,9 @@ const ProgressIndicator = ({
               disabled={step.id > currentStep}
               className={`w-8 h-8 rounded-full flex items-center justify-center text-xs font-semibold transition-all duration-200 ${
                 step.id === currentStep
-                  ? "bg-primary text-primary-foreground"
+                  ? "bg-indigo-400 text-white"
                   : step.id < currentStep
-                  ? "bg-success text-success-foreground"
+                  ? "bg-green-600 text-white"
                   : "bg-muted text-muted-foreground"
               }`}
             >

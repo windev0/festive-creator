@@ -46,8 +46,8 @@ const WizardNavigation = ({
           {showSaveDraft && (
             <Button
               variant="ghost"
-            //   iconName="Save"
-            //   iconPosition="left"
+              //   iconName="Save"
+              //   iconPosition="left"
               onClick={onSaveDraft}
               className="text-muted-foreground hover:text-foreground"
             >
@@ -62,15 +62,34 @@ const WizardNavigation = ({
           <Button
             variant="default"
             onClick={onNext}
+            className="bg-indigo-600 text-white hover:bg-indigo-700 transition-colors duration-200"
             disabled={isNextDisabled}
           >
             {isLastStep ? "Terminer" : nextButtonText}
             <span className="ml-2">
               {isLastStep ? (
                 // You can use a check icon from lucide-react or any icon library
-                <svg width="16" height="16" fill="none" stroke="currentColor" strokeWidth="2" viewBox="0 0 24 24"><path d="M20 6L9 17l-5-5" /></svg>
+                <svg
+                  width="16"
+                  height="16"
+                  fill="none"
+                  stroke="currentColor"
+                  strokeWidth="2"
+                  viewBox="0 0 24 24"
+                >
+                  <path d="M20 6L9 17l-5-5" />
+                </svg>
               ) : (
-                <svg width="16" height="16" fill="none" stroke="currentColor" strokeWidth="2" viewBox="0 0 24 24"><path d="M9 18l6-6-6-6" /></svg>
+                <svg
+                  width="16"
+                  height="16"
+                  fill="none"
+                  stroke="currentColor"
+                  strokeWidth="2"
+                  viewBox="0 0 24 24"
+                >
+                  <path d="M9 18l6-6-6-6" />
+                </svg>
               )}
             </span>
           </Button>
