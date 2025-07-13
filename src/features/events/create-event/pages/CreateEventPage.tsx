@@ -12,6 +12,7 @@ import { Button } from "@/components/ui/button";
 import { ClockIcon } from "lucide-react";
 import WizardNavigation from "@/features/events/create-event/components/WizardNavigation";
 import EventCategorySelector from "@/features/events/create-event/components/EventCategorySelector";
+import PhotoUploader from "@/features/events/create-event/components/PhotoUploder";
 
 const CreateEventPage = () => {
   const navigate = useNavigate();
@@ -127,16 +128,15 @@ const CreateEventPage = () => {
     }
   };
 
+  // Update form data and mark as unsaved
+  const updateFormData = (updates: FormDataType) => {
+    setFormData((prev) => ({ ...prev, ...updates }));
+    setHasUnsavedChanges(true);
+  };
   const getStepContent = () => {
     switch (currentStep) {
       case 1:
         return (
-          // <Step1
-          //   next={nextStep}
-          //   data={formData}
-          //   updateForm={updateForm}
-          //   // setHasUnsavedChanges={setHasUnsavedChanges}
-          // />
           <EventCategorySelector
             selectedEventCategory={formData.category}
             onEventCategorySelect={(category) => updateForm({ category })}
@@ -146,12 +146,30 @@ const CreateEventPage = () => {
         );
       case 2:
         return (
-          <Step2
-            next={nextStep}
-            prev={prevStep}
-            data={formData}
-            updateForm={updateForm}
-            // setHasUnsavedChanges={setHasUnsavedChanges}
+          // <Step2
+          //   next={nextStep}
+          //   prev={prevStep}
+          //   data={formData}
+          //   updateForm={updateForm}
+          //   // setHasUnsavedChanges={setHasUnsavedChanges}
+          // />
+          <PhotoUploader
+            uploadedPhotos={formData.photos.map((photo, index) => ({
+              id: index + 1,
+
+              file: photo,
+              url: URL.createObjectURL(photo),
+              name: photo.name || `Photo ${index + 1}`,
+            }))}
+            onPhotosUpload={(newPhotos) =>
+              updateFormData({ photos: [...formData.photos, ...newPhotos] })
+            }
+            // TODO CONTINUE HERE
+            onPhotoRemove={(photoId) =>
+              updateFormData({
+                photos: formData.photos.filter((photo) => photo.id !== photoId),
+              })
+            }
           />
         );
       case 3:
