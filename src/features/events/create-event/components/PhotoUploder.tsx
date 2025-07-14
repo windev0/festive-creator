@@ -123,14 +123,8 @@ const PhotoUploader = ({
             <h3 className="text-lg font-semibold text-foreground">
               Photos sélectionnées ({uploadedPhotos.length})
             </h3>
-            <Button
-              variant="outline"
-              size="sm"
-              //   iconName="Plus"
-              //   iconPosition="left"
-              onClick={openFileDialog}
-            >
-              <span>
+            <Button variant="outline" size="sm" onClick={openFileDialog}>
+              <span className="flex items-center gap-1">
                 <PlusIcon></PlusIcon>
                 Ajouter plus
               </span>
@@ -140,7 +134,7 @@ const PhotoUploader = ({
           <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4">
             {uploadedPhotos.map((photo) => (
               <div key={photo.id} className="relative group">
-                <div className="aspect-square rounded-lg overflow-hidden bg-muted">
+                <div className="aspect-square cursor-pointer rounded-lg overflow-hidden bg-muted">
                   <Image
                     src={photo.url}
                     alt={photo.name}
@@ -149,7 +143,9 @@ const PhotoUploader = ({
                 </div>
                 <button
                   onClick={() => onPhotoRemove(uploadedPhotos, photo.id)}
-                  className="absolute -top-2 -right-2 w-6 h-6 bg-destructive text-destructive-foreground rounded-full flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity duration-200 hover:scale-110"
+                  className={`absolute cursor-pointer -top-2 -right-2 w-6 h-6 bg-black text-white rounded-full flex items-center justify-center transition-opacity duration-200 hover:scale-110
+                  opacity-100 md:opacity-0 md:group-hover:opacity-100
+                  `}
                 >
                   <XIcon name="X" size={14} />
                 </button>

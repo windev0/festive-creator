@@ -12,7 +12,7 @@ import { ClockIcon } from "lucide-react";
 import WizardNavigation from "@/features/events/create-event/components/WizardNavigation";
 import EventCategorySelector from "@/features/events/create-event/components/EventCategorySelector";
 import PhotoUploader from "@/features/events/create-event/components/PhotoUploder";
-import { getFileUniqueName } from "@/utils/functions";
+import { customToastMsg, getFileUniqueName } from "@/utils/functions";
 
 const CreateEventPage = () => {
   const navigate = useNavigate();
@@ -160,7 +160,15 @@ const CreateEventPage = () => {
                 name: getFileUniqueName(photo, index),
               };
             })}
-            onPhotosUpload={(newPhotos) =>
+            onPhotosUpload={(newPhotos) => {
+              // control max 4 file, si ça dépasse on affiche un message d'erreur
+              if (formData.photos.length + newPhotos.length > 5) {
+                customToastMsg({
+                  msg: "Vous ne pouvez pas ajouter plus de 5 photos",
+                  className: "bg-red-500 text-white",
+                });
+                return;
+              }
               updateForm({
                 photos: [
                   ...formData.photos,
@@ -172,8 +180,8 @@ const CreateEventPage = () => {
                     return newFile;
                   }),
                 ],
-              })
-            }
+              });
+            }}
             onPhotoRemove={(uploadedPhotos, photoId) => {
               updateForm({
                 photos: formData.photos.filter((photo) => {
