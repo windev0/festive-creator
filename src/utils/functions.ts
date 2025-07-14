@@ -24,4 +24,11 @@ export function customToastMsg({
   });
 }
 
+// Génère un nom unique basé sur la date, l'index et le nom original
+export function getFileUniqueName(file: File, index: number): string {
+  return `${new Date().toISOString().replace(/[:.]/g, "-")}_${index + 1}_${
+    file?.name?.substring(0, 5) || "photo"
+  }`;
+}
+
 export { isAuthenticated };

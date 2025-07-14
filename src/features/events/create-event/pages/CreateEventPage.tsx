@@ -1,7 +1,6 @@
 import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 
-import Step2 from "@/features/event/components/Step2";
 import Step4 from "@/features/event/components/Step4";
 import Step3 from "@/features/event/components/Step3";
 import Step5 from "@/features/event/components/Step5";
@@ -13,6 +12,7 @@ import { ClockIcon } from "lucide-react";
 import WizardNavigation from "@/features/events/create-event/components/WizardNavigation";
 import EventCategorySelector from "@/features/events/create-event/components/EventCategorySelector";
 import PhotoUploader from "@/features/events/create-event/components/PhotoUploder";
+import { getFileUniqueName } from "@/utils/functions";
 
 const CreateEventPage = () => {
   const navigate = useNavigate();
@@ -34,7 +34,13 @@ const CreateEventPage = () => {
   const prevStep = () => setStep((prev) => prev - 1);
 
   const updateForm = (updates: Partial<FormDataType>) => {
-    setFormData((prev) => ({ ...prev, ...updates }));
+    setFormData((prev) => {
+      console.log("prev formData:", prev);
+      return { ...prev, ...updates };
+    });
+    setHasUnsavedChanges(true);
+
+    console.log("updateFormData called with updates:", formData);
   };
 
   // Load saved draft on component mount
@@ -129,10 +135,9 @@ const CreateEventPage = () => {
   };
 
   // Update form data and mark as unsaved
-  const updateFormData = (updates: FormDataType) => {
-    setFormData((prev) => ({ ...prev, ...updates }));
-    setHasUnsavedChanges(true);
-  };
+  // const updateFormData = (updates: Partial<FormDataType>) => {
+
+  // };
   const getStepContent = () => {
     switch (currentStep) {
       case 1:
@@ -146,30 +151,43 @@ const CreateEventPage = () => {
         );
       case 2:
         return (
-          // <Step2
-          //   next={nextStep}
-          //   prev={prevStep}
-          //   data={formData}
-          //   updateForm={updateForm}
-          //   // setHasUnsavedChanges={setHasUnsavedChanges}
-          // />
           <PhotoUploader
-            uploadedPhotos={formData.photos.map((photo, index) => ({
-              id: index + 1,
-
-              file: photo,
-              url: URL.createObjectURL(photo),
-              name: photo.name || `Photo ${index + 1}`,
-            }))}
+            uploadedPhotos={formData.photos?.map((photo, index) => {
+              return {
+                id: index + 1,
+                file: photo,
+                url: URL.createObjectURL(photo),
+                name: getFileUniqueName(photo, index),
+              };
+            })}
             onPhotosUpload={(newPhotos) =>
-              updateFormData({ photos: [...formData.photos, ...newPhotos] })
-            }
-            // TODO CONTINUE HERE
-            onPhotoRemove={(photoId) =>
-              updateFormData({
-                photos: formData.photos.filter((photo) => photo.id !== photoId),
+              updateForm({
+                photos: [
+                  ...formData.photos,
+                  ...newPhotos.map((p, idx) => {
+                    const uniqueName = getFileUniqueName(p.file, idx);
+                    const newFile = new File([p.file], uniqueName, {
+                      type: p.file.type,
+                    });
+                    return newFile;
+                  }),
+                ],
               })
             }
+            onPhotoRemove={(uploadedPhotos, photoId) => {
+              updateForm({
+                photos: formData.photos.filter((photo) => {
+                  // Find the photo object to remove by id
+                  const photoToRemove = uploadedPhotos.find(
+                    (p) => p.id === photoId
+                  );
+                  if (photoToRemove) {
+                    return photo.name !== photoToRemove.file.name;
+                  }
+                  return true; // renvoyer tous les éléments
+                }),
+              });
+            }}
           />
         );
       case 3:

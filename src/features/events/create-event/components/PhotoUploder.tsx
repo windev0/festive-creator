@@ -3,17 +3,16 @@ import { Button } from "@/components/ui/button";
 import { LightbulbIcon, PlusIcon, UploadIcon, XIcon } from "lucide-react";
 import { useRef, useState } from "react";
 
+type Photo = {
+  id: number;
+  file: File;
+  url: string;
+  name: string;
+};
 type PhotoUploaderProps = {
-  uploadedPhotos: Array<{
-    id: number;
-    file: File;
-    url: string;
-    name: string;
-  }>;
-  onPhotosUpload: (
-    photos: Array<{ id: number; file: File; url: string; name: string }>
-  ) => void;
-  onPhotoRemove: (id: number) => void;
+  uploadedPhotos: Photo[];
+  onPhotosUpload: (photos: Photo[]) => void;
+  onPhotoRemove: (photos: Photo[], id: number) => void;
 };
 
 const PhotoUploader = ({
@@ -149,7 +148,7 @@ const PhotoUploader = ({
                   />
                 </div>
                 <button
-                  onClick={() => onPhotoRemove(photo.id)}
+                  onClick={() => onPhotoRemove(uploadedPhotos, photo.id)}
                   className="absolute -top-2 -right-2 w-6 h-6 bg-destructive text-destructive-foreground rounded-full flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity duration-200 hover:scale-110"
                 >
                   <XIcon name="X" size={14} />
