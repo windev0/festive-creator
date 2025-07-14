@@ -2,8 +2,8 @@ import { useState } from "react";
 
 import TitleModal from "@/features/events/create-event/components/TitleModal";
 import {
-  EventCategories,
-  EventTitleExamples,
+  eventCategories,
+  eventTitleExamples,
 } from "@/features/events/utils/constants";
 
 type EventCategorySelectorProps = {
@@ -35,7 +35,7 @@ const EventCategorySelector = ({
       </div>
 
       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
-        {EventCategories.map((eventCategory) => (
+        {eventCategories.map((eventCategory) => (
           <button
             key={eventCategory.id}
             onClick={() => {
@@ -72,7 +72,7 @@ const EventCategorySelector = ({
       {selectedEventCategory && (
         <TitleModal
           selectedEventCategory={selectedEventCategory}
-          examples={EventTitleExamples[selectedEventCategory] || []}
+          examples={eventTitleExamples[selectedEventCategory] || []}
           title={title}
           onTitleSelect={onEventTitle}
           open={open}

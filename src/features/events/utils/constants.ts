@@ -1,4 +1,5 @@
 import type { FormDataType } from "@/features/event/pages/CreateEvent.page";
+import type { MusicLibraryYpe } from "@/features/events/utils/types";
 import {
   Cake,
   GraduationCap,
@@ -19,7 +20,7 @@ export const initialData: FormDataType = {
   userId: "",
 };
 
-export const EventCategories = [
+export const eventCategories = [
   {
     id: "personal",
     name: "Événements personnels",
@@ -92,7 +93,7 @@ export const EventCategories = [
   },
 ];
 
-export const EventTitleExamples: Record<string, string[]> = {
+export const eventTitleExamples: Record<string, string[]> = {
   // 🎂 Événements personnels
   personal: [
     "Anniversaire surprise de Marie",
@@ -166,7 +167,7 @@ export const defaultSteps = [
   { id: 4, label: "Share", icon: "Share2" },
 ];
 
-export const musicLibrary = [
+export const musicLibrary: MusicLibraryYpe[] = [
   {
     id: "happy-birthday",
     name: "Joyeux Anniversaire",

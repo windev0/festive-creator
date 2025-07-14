@@ -11,21 +11,18 @@ import {
 } from "lucide-react";
 import { useRef, useState } from "react";
 
+type VoiceType = {
+  id: string;
+  name: string;
+  url: string;
+  duration: string;
+};
+
 type MusicSelectorProps = {
   selectedMusic: string | null;
   onMusicSelect: (musicId: string) => void;
-  recordedVoice: {
-    id: string;
-    name: string;
-    url: string;
-    duration: string;
-  } | null;
-  onVoiceRecord: (voiceData: {
-    id: string;
-    name: string;
-    url: string;
-    duration: string;
-  }) => void;
+  recordedVoice: VoiceType | null;
+  onVoiceRecord: (voiceData: VoiceType) => void;
 };
 
 const MusicSelector = ({
@@ -186,9 +183,9 @@ const MusicSelector = ({
             <button
               key={category}
               onClick={() => setSelectedCategory(category)}
-              className={`px-4 py-2 rounded-full text-sm font-medium transition-colors duration-200 ${
+              className={` cursor-pointer px-4 py-2 rounded-full text-sm font-medium transition-colors duration-200 ${
                 selectedCategory === category
-                  ? "bg-primary text-primary-foreground"
+                  ? "bg-indigo-500 text-white"
                   : "bg-muted text-muted-foreground hover:bg-muted/80"
               }`}
             >
@@ -204,14 +201,14 @@ const MusicSelector = ({
               key={track.id}
               className={`flex items-center justify-between p-4 rounded-lg border transition-all duration-200 hover:shadow-md ${
                 selectedMusic === track.id
-                  ? "border-primary bg-primary/5"
+                  ? "border-indigo-500 bg-indigo-500/5"
                   : "border-border bg-card hover:border-muted-foreground/30"
               }`}
             >
               <div className="flex items-center space-x-4">
                 <button
                   onClick={() => handlePlayPause(track)}
-                  className="w-10 h-10 bg-primary text-primary-foreground rounded-full flex items-center justify-center hover:bg-primary/90 transition-colors duration-200"
+                  className="w-10 h-10 bg-indigo-500 text-white rounded-full flex items-center justify-center hover:bg-indigo-500/90 transition-colors duration-200"
                 >
                   {playingTrack === track.id && isPlaying ? (
                     <PauseIcon name={"Pause"} size={16} />
@@ -241,6 +238,11 @@ const MusicSelector = ({
                 <Button
                   variant={selectedMusic === track.id ? "default" : "outline"}
                   size="sm"
+                  className={
+                    selectedMusic === track.id
+                      ? "bg-indigo-500 text-white hover:bg-indigo-600"
+                      : ""
+                  }
                   onClick={() => onMusicSelect(track.id)}
                 >
                   {selectedMusic === track.id ? "Sélectionné" : "Choisir"}
@@ -263,9 +265,9 @@ const MusicSelector = ({
       {/* Upload Custom Music */}
       <div className="bg-muted/50 rounded-lg p-4">
         <div className="flex items-start space-x-3">
-          <div className="w-8 h-8 bg-primary/10 rounded-full flex items-center justify-center flex-shrink-0">
+          {/* <div className="w-8 h-8 bg-primary/10 rounded-full flex items-center justify-center flex-shrink-0">
             <UploadIcon name="Upload" size={16} className="text-primary" />
-          </div>
+          </div> */}
           <div>
             <h4 className="font-medium text-foreground mb-1">
               Musique personnalisée
@@ -276,11 +278,20 @@ const MusicSelector = ({
             <Button
               variant="outline"
               size="sm"
+              className="hover:bg-indigo-200 cursor-pointer "
               //   iconName="Upload"
               //   iconPosition="left"
             >
               <span className="flex justify-center items-center gap-1">
                 <UploadIcon />
+                <audio
+                  controls
+                  src={
+                    musicLibrary.find((music) => music.id === selectedMusic)
+                      ?.url
+                  }
+                  className="w-full"
+                />
                 Télécharger un fichier
               </span>
             </Button>

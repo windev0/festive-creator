@@ -1,5 +1,3 @@
-import type { musicLibrary } from "@/features/events/utils/constants";
-
 export type FormDataType = {
   title: string;
   category: string;
@@ -11,4 +9,11 @@ export type FormDataType = {
   userId: string;
 };
 
-export type MusicLibraryYpe = (typeof musicLibrary)[0];
+export type MusicLibraryYpe = {
+  id: string;
+  name: string;
+  artist: string;
+  duration: string;
+  category: string;
+  url: string;
+};

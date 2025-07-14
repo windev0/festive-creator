@@ -8,13 +8,13 @@ import MainLayout from "@/layouts/MainLayout";
 import { type FormDataType } from "@/features/events/utils/types";
 import ProgressIndicator from "@/features/events/create-event/components/ProgressIndicator";
 import { Button } from "@/components/ui/button";
-import { ClockIcon } from "lucide-react";
+import { ClockIcon, SaveIcon } from "lucide-react";
 import WizardNavigation from "@/features/events/create-event/components/WizardNavigation";
 import EventCategorySelector from "@/features/events/create-event/components/EventCategorySelector";
 import PhotoUploader from "@/features/events/create-event/components/PhotoUploder";
 import { customToastMsg, getFileUniqueName } from "@/utils/functions";
 import MusicSelector from "@/features/events/create-event/components/MusicSelector";
-import { initialData } from "@/features/events/utils/constants";
+import { initialData, musicLibrary } from "@/features/events/utils/constants";
 
 const CreateEventPage = () => {
   const navigate = useNavigate();
@@ -212,8 +212,9 @@ const CreateEventPage = () => {
           // TODO continuer ici
           <MusicSelector
             // selectedMusic={formData.selectedMusic}
-            selectedMusic={formData.title}
+            selectedMusic={musicLibrary[0].id} // Default to first music for now
             onMusicSelect={(musicId) =>
+              // updateFormData({selectedMusic: musicId})
               updateFormData({})
             }
             recordedVoice={formData.recordedVoice}
@@ -292,13 +293,14 @@ const CreateEventPage = () => {
           <div className="flex flex-wrap gap-4 justify-center mb-8">
             <Button
               variant="default"
-              // size="sm"
-              // iconName="Save"
-              // iconPosition="left"
+              className="bg-indigo-500 text-white cursor-pointer hover:bg-indigo-600"
               onClick={saveDraft}
               disabled={!hasUnsavedChanges}
             >
-              Sauvegarder le brouillon
+              <span className="flex items-center gap-2 ">
+                <SaveIcon />
+                Sauvegarder le brouillon
+              </span>
             </Button>
 
             <Button
