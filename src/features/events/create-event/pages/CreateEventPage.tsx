@@ -5,7 +5,7 @@ import Step4 from "@/features/event/components/Step4";
 import Step3 from "@/features/event/components/Step3";
 import Step5 from "@/features/event/components/Step5";
 import MainLayout from "@/layouts/MainLayout";
-import { initialData, type FormDataType } from "@/features/events/utils/types";
+import { type FormDataType } from "@/features/events/utils/types";
 import ProgressIndicator from "@/features/events/create-event/components/ProgressIndicator";
 import { Button } from "@/components/ui/button";
 import { ClockIcon } from "lucide-react";
@@ -13,6 +13,8 @@ import WizardNavigation from "@/features/events/create-event/components/WizardNa
 import EventCategorySelector from "@/features/events/create-event/components/EventCategorySelector";
 import PhotoUploader from "@/features/events/create-event/components/PhotoUploder";
 import { customToastMsg, getFileUniqueName } from "@/utils/functions";
+import MusicSelector from "@/features/events/create-event/components/MusicSelector";
+import { initialData } from "@/features/events/utils/constants";
 
 const CreateEventPage = () => {
   const navigate = useNavigate();
@@ -33,7 +35,7 @@ const CreateEventPage = () => {
   const nextStep = () => setStep((prev) => prev + 1);
   const prevStep = () => setStep((prev) => prev - 1);
 
-  const updateForm = (updates: Partial<FormDataType>) => {
+  const updateFormData = (updates: Partial<FormDataType>) => {
     setFormData((prev) => {
       console.log("prev formData:", prev);
       return { ...prev, ...updates };
@@ -144,9 +146,9 @@ const CreateEventPage = () => {
         return (
           <EventCategorySelector
             selectedEventCategory={formData.category}
-            onEventCategorySelect={(category) => updateForm({ category })}
+            onEventCategorySelect={(category) => updateFormData({ category })}
             title={formData.title}
-            onEventTitle={(title) => updateForm({ title })}
+            onEventTitle={(title) => updateFormData({ title })}
           />
         );
       case 2:
@@ -169,7 +171,7 @@ const CreateEventPage = () => {
                 });
                 return;
               }
-              updateForm({
+              updateFormData({
                 photos: [
                   ...formData.photos,
                   ...newPhotos.map((p, idx) => {
@@ -183,7 +185,7 @@ const CreateEventPage = () => {
               });
             }}
             onPhotoRemove={(uploadedPhotos, photoId) => {
-              updateForm({
+              updateFormData({
                 photos: formData.photos.filter((photo) => {
                   // Find the photo object to remove by id
                   const photoToRemove = uploadedPhotos.find(
@@ -200,12 +202,24 @@ const CreateEventPage = () => {
         );
       case 3:
         return (
-          <Step3
-            next={nextStep}
-            prev={prevStep}
-            data={formData}
-            updateForm={updateForm}
-            // setHasUnsavedChanges={setHasUnsavedChanges}
+          // <Step3
+          //   next={nextStep}
+          //   prev={prevStep}
+          //   data={formData}
+          //   updateForm={updateForm}
+          //   // setHasUnsavedChanges={setHasUnsavedChanges}
+          // />
+          // TODO continuer ici
+          <MusicSelector
+            // selectedMusic={formData.selectedMusic}
+            selectedMusic={formData.title}
+            onMusicSelect={(musicId) =>
+              updateFormData({})
+            }
+            recordedVoice={formData.recordedVoice}
+            onVoiceRecord={(voiceData) =>
+              updateFormData({ recordedVoice: voiceData })
+            }
           />
         );
       case 4:
@@ -214,7 +228,7 @@ const CreateEventPage = () => {
             next={nextStep}
             prev={prevStep}
             data={formData}
-            updateForm={updateForm}
+            updateForm={updateFormData}
             // setHasUnsavedChanges={setHasUnsavedChanges}
           />
         );

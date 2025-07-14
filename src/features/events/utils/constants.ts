@@ -1,3 +1,4 @@
+import type { FormDataType } from "@/features/event/pages/CreateEvent.page";
 import {
   Cake,
   GraduationCap,
@@ -7,6 +8,16 @@ import {
   HandHeart,
   Gamepad2,
 } from "lucide-react";
+
+export const initialData: FormDataType = {
+  title: "",
+  category: "",
+  duration: "",
+  photos: [],
+  music: null,
+  message: "",
+  userId: "",
+};
 
 export const EventCategories = [
   {
@@ -153,4 +164,55 @@ export const defaultSteps = [
   { id: 2, label: "Design", icon: "Palette" },
   { id: 3, label: "Preview", icon: "Eye" },
   { id: 4, label: "Share", icon: "Share2" },
+];
+
+export const musicLibrary = [
+  {
+    id: "happy-birthday",
+    name: "Joyeux Anniversaire",
+    artist: "Classique",
+    duration: "0:30",
+    category: "Anniversaire",
+    url: "https://www.soundjay.com/misc/sounds/bell-ringing-05.wav",
+  },
+  {
+    id: "wedding-march",
+    name: "Marche Nuptiale",
+    artist: "Wagner",
+    duration: "1:15",
+    category: "Mariage",
+    url: "https://www.soundjay.com/misc/sounds/bell-ringing-05.wav",
+  },
+  {
+    id: "baby-lullaby",
+    name: "Berceuse Douce",
+    artist: "Traditionnel",
+    duration: "2:00",
+    category: "Bébé",
+    url: "https://www.soundjay.com/misc/sounds/bell-ringing-05.wav",
+  },
+  {
+    id: "celebration",
+    name: "Célébration",
+    artist: "Festif",
+    duration: "1:30",
+    category: "Général",
+    url: "https://www.soundjay.com/misc/sounds/bell-ringing-05.wav",
+  },
+  {
+    id: "romantic",
+    name: "Mélodie Romantique",
+    artist: "Amour",
+    duration: "2:15",
+    category: "Mariage",
+    url: "https://www.soundjay.com/misc/sounds/bell-ringing-05.wav",
+  },
+  {
+    id: "upbeat",
+    name: "Rythme Joyeux",
+    artist: "Moderne",
+    duration: "1:45",
+    category: "Général",
+    url: "https://www.soundjay.com/misc/sounds/bell-ringing-05.wav",
+  },
 ];
