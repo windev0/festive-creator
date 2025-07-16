@@ -1,5 +1,4 @@
-import type { FormDataType } from "@/features/event/pages/CreateEvent.page";
-import type { MusicLibraryYpe } from "@/features/events/utils/types";
+import type { FormDataType, MusicLibraryYpe } from "@/features/events/utils/types";
 import {
   Cake,
   GraduationCap,
@@ -15,7 +14,9 @@ export const initialData: FormDataType = {
   category: "",
   duration: "",
   photos: [],
-  music: null,
+  // music: null,
+  musicUrl: "",
+  recordedVoice: null,
   message: "",
   userId: "",
 };
@@ -169,51 +170,59 @@ export const defaultSteps = [
 
 export const musicLibrary: MusicLibraryYpe[] = [
   {
-    id: "happy-birthday",
-    name: "Joyeux Anniversaire",
+    id: "personal",
+    name: "Événements personnels",
     artist: "Classique",
     duration: "0:30",
     category: "Anniversaire",
-    url: "https://www.soundjay.com/misc/sounds/bell-ringing-05.wav",
+    url: "https://cdn.pixabay.com/audio/2022/10/16/audio_12b6b8b7c7.mp3", // Joyful birthday tune
   },
   {
-    id: "wedding-march",
-    name: "Marche Nuptiale",
-    artist: "Wagner",
-    duration: "1:15",
-    category: "Mariage",
-    url: "https://www.soundjay.com/misc/sounds/bell-ringing-05.wav",
+    id: "academic",
+    name: "Célébrations académiques",
+    artist: "Instrumental",
+    duration: "1:00",
+    category: "Remise de diplôme",
+    url: "https://cdn.pixabay.com/audio/2022/03/15/audio_115b7b6b7b.mp3", // Graduation march
   },
   {
-    id: "baby-lullaby",
-    name: "Berceuse Douce",
-    artist: "Traditionnel",
-    duration: "2:00",
-    category: "Bébé",
-    url: "https://www.soundjay.com/misc/sounds/bell-ringing-05.wav",
-  },
-  {
-    id: "celebration",
-    name: "Célébration",
+    id: "social",
+    name: "Fêtes sociales & communautaires",
     artist: "Festif",
+    duration: "1:20",
+    category: "Fête",
+    url: "https://cdn.pixabay.com/audio/2022/10/16/audio_12b6b8b7c7.mp3", // Upbeat party music
+  },
+  {
+    id: "professional",
+    name: "Événements pro festifs",
+    artist: "Corporate",
+    duration: "0:45",
+    category: "Entreprise",
+    url: "https://cdn.pixabay.com/audio/2022/03/15/audio_115b7b6b7b.mp3", // Motivational background
+  },
+  {
+    id: "cultural",
+    name: "Événements culturels & artistiques",
+    artist: "Orchestre",
     duration: "1:30",
-    category: "Général",
-    url: "https://www.soundjay.com/misc/sounds/bell-ringing-05.wav",
+    category: "Concert",
+    url: "https://cdn.pixabay.com/audio/2022/10/16/audio_12b6b8b7c7.mp3", // Artistic/cultural music
   },
   {
-    id: "romantic",
-    name: "Mélodie Romantique",
-    artist: "Amour",
-    duration: "2:15",
-    category: "Mariage",
-    url: "https://www.soundjay.com/misc/sounds/bell-ringing-05.wav",
+    id: "solidarity",
+    name: "Causes & solidarité",
+    artist: "Émotion",
+    duration: "1:10",
+    category: "Caritatif",
+    url: "https://cdn.pixabay.com/audio/2022/03/15/audio_115b7b6b7b.mp3", // Hopeful/solidarity tune
   },
   {
-    id: "upbeat",
-    name: "Rythme Joyeux",
+    id: "fun",
+    name: "Autres catégories fun et modernes",
     artist: "Moderne",
-    duration: "1:45",
-    category: "Général",
-    url: "https://www.soundjay.com/misc/sounds/bell-ringing-05.wav",
+    duration: "1:05",
+    category: "Jeux",
+    url: "https://cdn.pixabay.com/audio/2022/10/16/audio_12b6b8b7c7.mp3", // Fun/modern party music
   },
 ];

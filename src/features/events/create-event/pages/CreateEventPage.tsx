@@ -5,7 +5,6 @@ import Step4 from "@/features/event/components/Step4";
 import Step3 from "@/features/event/components/Step3";
 import Step5 from "@/features/event/components/Step5";
 import MainLayout from "@/layouts/MainLayout";
-import { type FormDataType } from "@/features/events/utils/types";
 import ProgressIndicator from "@/features/events/create-event/components/ProgressIndicator";
 import { Button } from "@/components/ui/button";
 import { ClockIcon, SaveIcon } from "lucide-react";
@@ -15,6 +14,7 @@ import PhotoUploader from "@/features/events/create-event/components/PhotoUplode
 import { customToastMsg, getFileUniqueName } from "@/utils/functions";
 import MusicSelector from "@/features/events/create-event/components/MusicSelector";
 import { initialData, musicLibrary } from "@/features/events/utils/constants";
+import type { FormDataType } from "@/features/events/utils/types";
 
 const CreateEventPage = () => {
   const navigate = useNavigate();
@@ -45,6 +45,10 @@ const CreateEventPage = () => {
     console.log("updateFormData called with updates:", formData);
   };
 
+  useEffect(() => {
+    console.log("formData", formData);
+  }, [formData]);
+
   // Load saved draft on component mount
   useEffect(() => {
     console.log("step", step);
@@ -62,6 +66,7 @@ const CreateEventPage = () => {
 
   // Save draft to localStorage
   const saveDraft = () => {
+    console.log("saveDraft", formData);
     const draftData = {
       formData,
       currentStep,
@@ -71,10 +76,9 @@ const CreateEventPage = () => {
     setHasUnsavedChanges(false);
 
     // Show success feedback
-    const event = new CustomEvent("showToast", {
-      detail: { message: "Brouillon sauvegardé avec succès", type: "success" },
+    customToastMsg({
+      msg: "Brouillon sauvegardé avec succès",
     });
-    window.dispatchEvent(event);
   };
 
   // Navigation handlers
@@ -126,7 +130,7 @@ const CreateEventPage = () => {
       case 2:
         return formData.photos.length > 0;
       case 3:
-        return formData.music !== null;
+        return formData.musicUrl !== null;
       case 4:
         return formData.duration && formData.message;
       case 5:
@@ -136,10 +140,6 @@ const CreateEventPage = () => {
     }
   };
 
-  // Update form data and mark as unsaved
-  // const updateFormData = (updates: Partial<FormDataType>) => {
-
-  // };
   const getStepContent = () => {
     switch (currentStep) {
       case 1:
@@ -158,7 +158,7 @@ const CreateEventPage = () => {
               return {
                 id: index + 1,
                 file: photo,
-                url: URL.createObjectURL(photo),
+                url: photo && URL.createObjectURL(photo),
                 name: getFileUniqueName(photo, index),
               };
             })}
@@ -211,11 +211,14 @@ const CreateEventPage = () => {
           // />
           // TODO continuer ici
           <MusicSelector
-            // selectedMusic={formData.selectedMusic}
-            selectedMusic={musicLibrary[0].id} // Default to first music for now
-            onMusicSelect={(musicId) =>
-              // updateFormData({selectedMusic: musicId})
-              updateFormData({})
+            selectedMusic={formData.selectedMusicID ?? ""}
+            onMusicSelect={
+              (musicId) =>
+                updateFormData({
+                  musicUrl:
+                    musicLibrary.find((m) => m.id === musicId)?.url || "",
+                  selectedMusicID: musicId,
+                })
             }
             recordedVoice={formData.recordedVoice}
             onVoiceRecord={(voiceData) =>

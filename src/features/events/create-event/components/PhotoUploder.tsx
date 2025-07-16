@@ -132,7 +132,7 @@ const PhotoUploader = ({
           </div>
 
           <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4">
-            {uploadedPhotos.map((photo) => (
+            {uploadedPhotos?.map((photo) => (
               <div key={photo.id} className="relative group">
                 <div className="aspect-square cursor-pointer rounded-lg overflow-hidden bg-muted">
                   <Image

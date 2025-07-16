@@ -3,8 +3,10 @@ export type FormDataType = {
   category: string;
   duration: string;
   photos: File[];
-  music: File | null;
+  // music: File | null;
   recordedVoice?: any;
+  musicUrl: string;
+  selectedMusicID?: string; // ID Added for music selection
   message: string;
   userId: string;
 };

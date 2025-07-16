@@ -12,7 +12,7 @@ export type FormDataType = {
   category: string;
   duration: string;
   photos: File[];
-  music: File | null;
+  music?: File | null; // TODO A revoir
   message: string;
   userId: string;
 };

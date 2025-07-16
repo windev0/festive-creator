@@ -1,5 +1,8 @@
 import { Button } from "@/components/ui/button";
-import { musicLibrary } from "@/features/events/utils/constants";
+import {
+  eventCategories,
+  musicLibrary,
+} from "@/features/events/utils/constants";
 import type { MusicLibraryYpe } from "@/features/events/utils/types";
 import {
   MicIcon,
@@ -39,13 +42,12 @@ const MusicSelector = ({
   const mediaRecorderRef = useRef<MediaRecorder>(null);
   const recordingIntervalRef = useRef<any>(null);
 
-  const categories = ["Tous", "Anniversaire", "Mariage", "Bébé", "Général"];
   const [selectedCategory, setSelectedCategory] = useState("Tous");
 
   const filteredMusic =
     selectedCategory === "Tous"
       ? musicLibrary
-      : musicLibrary.filter((track) => track.category === selectedCategory);
+      : musicLibrary.filter((track) => track.id === selectedCategory);
 
   const handlePlayPause = (track: MusicLibraryYpe) => {
     if (playingTrack === track.id && isPlaying) {
@@ -110,7 +112,7 @@ const MusicSelector = ({
   };
 
   return (
-    <div className="space-y-6">
+    <div className="space-y-6 mx-3 ">
       <div className="text-center">
         <h2 className="text-2xl font-bold text-foreground mb-2">
           Choisissez votre musique
@@ -179,17 +181,23 @@ const MusicSelector = ({
 
         {/* Category Filter */}
         <div className="flex flex-wrap gap-2">
-          {categories.map((category) => (
+          {[
+            {
+              id: "Tous",
+              name: "Tous",
+            },
+            ...eventCategories,
+          ].map(({ id, name }) => (
             <button
-              key={category}
-              onClick={() => setSelectedCategory(category)}
+              key={id}
+              onClick={() => setSelectedCategory(id)}
               className={` cursor-pointer px-4 py-2 rounded-full text-sm font-medium transition-colors duration-200 ${
-                selectedCategory === category
+                selectedCategory === id
                   ? "bg-indigo-500 text-white"
                   : "bg-muted text-muted-foreground hover:bg-muted/80"
               }`}
             >
-              {category}
+              {name}
             </button>
           ))}
         </div>
@@ -215,16 +223,15 @@ const MusicSelector = ({
                   ) : (
                     <PlayIcon name={"Play"} size={16} />
                   )}
-                  {/* <Icon
-                    name={
-                      playingTrack === track.id && isPlaying ? "Pause" : "Play"
-                    }
-                    size={16}
-                  /> */}
                 </button>
 
-                <div>
-                  <h4 className="font-medium text-foreground">{track.name}</h4>
+                <div className="mr-4">
+                    <h4
+                    className="font-medium text-foreground  max-w-[120px] "
+                    title={track.name}
+                    >
+                    {track.name}
+                    </h4>
                   <p className="text-sm text-muted-foreground">
                     {track.artist} • {track.duration}
                   </p>
