@@ -1,10 +1,11 @@
-import { useState } from "react";
+import React, { useState } from "react";
 
-import TitleModal from "@/features/events/create-event/components/TitleModal";
 import {
   eventCategories,
   eventTitleExamples,
 } from "@/features/events/utils/constants";
+
+const TitleModal = React.lazy(() => import("@/features/events/create-event/components/TitleModal"));
 
 type EventCategorySelectorProps = {
   selectedEventCategory: string;

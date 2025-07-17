@@ -1,17 +1,17 @@
-import { useEffect, useState } from "react";
+import React, { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 
 import { ClockIcon, SaveIcon } from "lucide-react";
 import { Button } from "@/components/ui/button";
 
-import MainLayout from "@/layouts/MainLayout";
-import ProgressIndicator from "@/features/events/create-event/components/ProgressIndicator";
-import MusicSelector from "@/features/events/create-event/components/MusicSelector";
-import WizardNavigation from "@/features/events/create-event/components/WizardNavigation";
-import EventCategorySelector from "@/features/events/create-event/components/EventCategorySelector";
-import PhotoUploader from "@/features/events/create-event/components/PhotoUploder";
-import CustomizationPanel from "@/features/events/create-event/components/CustomizationPanel";
-import MessageComposer from "@/features/events/create-event/components/MessageComposer";
+const MainLayout = React.lazy(() => import("@/layouts/MainLayout"));
+const ProgressIndicator = React.lazy(() => import("@/features/events/create-event/components/ProgressIndicator"));
+const MusicSelector = React.lazy(() => import("@/features/events/create-event/components/MusicSelector"));
+const WizardNavigation = React.lazy(() => import("@/features/events/create-event/components/WizardNavigation"));
+const EventCategorySelector = React.lazy(() => import("@/features/events/create-event/components/EventCategorySelector"));
+const PhotoUploader = React.lazy(() => import("@/features/events/create-event/components/PhotoUploder"));
+const CustomizationPanel = React.lazy(() => import("@/features/events/create-event/components/CustomizationPanel"));
+const MessageComposer = React.lazy(() => import("@/features/events/create-event/components/MessageComposer"));
 
 import { customToastMsg, getFileUniqueName } from "@/utils/functions";
 import type { FormDataType } from "@/features/events/utils/types";
