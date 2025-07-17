@@ -10,6 +10,10 @@ export type FormDataType = {
   selectedTheme: string;
   selectedAnimation: string;
   videoDuration: number;
+  customMessage: string;
+  donationEnabled: boolean;
+  donationGoal: string;
+  donationDescription: string;
   message: string;
   userId: string;
 };

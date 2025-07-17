@@ -1,23 +1,25 @@
 import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 
-import Step5 from "@/features/event/components/Step5";
+import { ClockIcon, SaveIcon } from "lucide-react";
+import { Button } from "@/components/ui/button";
+
 import MainLayout from "@/layouts/MainLayout";
 import ProgressIndicator from "@/features/events/create-event/components/ProgressIndicator";
-import { Button } from "@/components/ui/button";
-import { ClockIcon, SaveIcon } from "lucide-react";
+import MusicSelector from "@/features/events/create-event/components/MusicSelector";
 import WizardNavigation from "@/features/events/create-event/components/WizardNavigation";
 import EventCategorySelector from "@/features/events/create-event/components/EventCategorySelector";
 import PhotoUploader from "@/features/events/create-event/components/PhotoUploder";
-import { customToastMsg, getFileUniqueName } from "@/utils/functions";
-import MusicSelector from "@/features/events/create-event/components/MusicSelector";
-import { initialData, musicLibrary } from "@/features/events/utils/constants";
-import type { FormDataType } from "@/features/events/utils/types";
 import CustomizationPanel from "@/features/events/create-event/components/CustomizationPanel";
+import MessageComposer from "@/features/events/create-event/components/MessageComposer";
+
+import { customToastMsg, getFileUniqueName } from "@/utils/functions";
+import type { FormDataType } from "@/features/events/utils/types";
+import { initialData, musicLibrary } from "@/features/events/utils/constants";
 
 const CreateEventPage = () => {
   const navigate = useNavigate();
-  const [step, setStep] = useState(1);
+  const [step, _] = useState(1);
   const [formData, setFormData] = useState<FormDataType>(initialData);
   const [currentStep, setCurrentStep] = useState(1);
   const [hasUnsavedChanges, setHasUnsavedChanges] = useState(false);
@@ -32,7 +34,7 @@ const CreateEventPage = () => {
   ];
 
   // const nextStep = () => setStep((prev) => prev + 1);
-  const prevStep = () => setStep((prev) => prev - 1);
+  // const prevStep = () => setStep((prev) => prev - 1);
 
   const updateFormData = (updates: Partial<FormDataType>) => {
     setFormData((prev) => {
@@ -239,14 +241,6 @@ const CreateEventPage = () => {
         );
       case 4:
         return (
-          // <Step4
-          //   next={nextStep}
-          //   prev={prevStep}
-          //   data={formData}
-          //   updateForm={updateFormData}
-          //   // setHasUnsavedChanges={setHasUnsavedChanges}
-          // />
-          // <PhotoSlideshow selectedEffect="flip" key={Math.random()} />
           <CustomizationPanel
             selectedTheme={formData.selectedTheme}
             onThemeSelect={(themeId) =>
@@ -263,7 +257,28 @@ const CreateEventPage = () => {
           />
         );
       case 5:
-        return <Step5 prev={prevStep} data={formData} />;
+        // return <Step5 prev={prevStep} data={formData} />;
+        return (
+          <MessageComposer
+            customMessage={formData.customMessage}
+            onMessageChange={(message) =>
+              updateFormData({ customMessage: message })
+            }
+            donationEnabled={formData.donationEnabled}
+            onDonationToggle={(enabled) =>
+              updateFormData({ donationEnabled: enabled })
+            }
+            donationGoal={formData.donationGoal}
+            onDonationGoalChange={(goal) =>
+              updateFormData({ donationGoal: goal })
+            }
+            donationDescription={formData.donationDescription}
+            onDonationDescriptionChange={(description) =>
+              updateFormData({ donationDescription: description })
+            }
+            speechSynthesis={window.speechSynthesis}
+          />
+        );
       default:
         return null;
     }
