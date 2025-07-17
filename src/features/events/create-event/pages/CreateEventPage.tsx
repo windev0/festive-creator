@@ -1,8 +1,6 @@
 import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 
-import Step4 from "@/features/event/components/Step4";
-import Step3 from "@/features/event/components/Step3";
 import Step5 from "@/features/event/components/Step5";
 import MainLayout from "@/layouts/MainLayout";
 import ProgressIndicator from "@/features/events/create-event/components/ProgressIndicator";
@@ -15,6 +13,7 @@ import { customToastMsg, getFileUniqueName } from "@/utils/functions";
 import MusicSelector from "@/features/events/create-event/components/MusicSelector";
 import { initialData, musicLibrary } from "@/features/events/utils/constants";
 import type { FormDataType } from "@/features/events/utils/types";
+import CustomizationPanel from "@/features/events/create-event/components/CustomizationPanel";
 
 const CreateEventPage = () => {
   const navigate = useNavigate();
@@ -32,7 +31,7 @@ const CreateEventPage = () => {
     { id: 5, label: "Message", icon: "MessageSquare" },
   ];
 
-  const nextStep = () => setStep((prev) => prev + 1);
+  // const nextStep = () => setStep((prev) => prev + 1);
   const prevStep = () => setStep((prev) => prev - 1);
 
   const updateFormData = (updates: Partial<FormDataType>) => {
@@ -124,15 +123,35 @@ const CreateEventPage = () => {
   };
 
   const isStepValid = () => {
+    const {
+      title,
+      category,
+      photos,
+      musicUrl,
+      selectedMusicID,
+      musicUploaded,
+      recordedVoice,
+      // duration,
+      // message,
+      videoDuration,
+      selectedAnimation,
+      selectedTheme,
+    } = formData;
     switch (currentStep) {
       case 1:
-        return formData.title && formData.category;
+        return title && category;
       case 2:
-        return formData.photos.length > 0;
+        return photos.length > 0;
       case 3:
-        return formData.musicUrl !== null;
+        return (
+          musicUrl !== null ||
+          selectedMusicID !== undefined ||
+          selectedMusicID !== "" ||
+          musicUploaded ||
+          recordedVoice
+        );
       case 4:
-        return formData.duration && formData.message;
+        return videoDuration && selectedAnimation && selectedTheme;
       case 5:
         return true; // Final step, always valid
       default:
@@ -202,24 +221,16 @@ const CreateEventPage = () => {
         );
       case 3:
         return (
-          // <Step3
-          //   next={nextStep}
-          //   prev={prevStep}
-          //   data={formData}
-          //   updateForm={updateForm}
-          //   // setHasUnsavedChanges={setHasUnsavedChanges}
-          // />
-          // TODO continuer ici
           <MusicSelector
             selectedMusic={formData.selectedMusicID ?? ""}
-            onMusicSelect={
-              (musicId) =>
-                updateFormData({
-                  musicUrl:
-                    musicLibrary.find((m) => m.id === musicId)?.url || "",
-                  selectedMusicID: musicId,
-                })
+            uploadedMusic={formData.musicUploaded ?? null}
+            onMusicSelect={(musicId) =>
+              updateFormData({
+                musicUrl: musicLibrary.find((m) => m.id === musicId)?.url || "",
+                selectedMusicID: musicId,
+              })
             }
+            onMusicUpload={(music) => updateFormData({ musicUploaded: music })}
             recordedVoice={formData.recordedVoice}
             onVoiceRecord={(voiceData) =>
               updateFormData({ recordedVoice: voiceData })
@@ -228,12 +239,27 @@ const CreateEventPage = () => {
         );
       case 4:
         return (
-          <Step4
-            next={nextStep}
-            prev={prevStep}
-            data={formData}
-            updateForm={updateFormData}
-            // setHasUnsavedChanges={setHasUnsavedChanges}
+          // <Step4
+          //   next={nextStep}
+          //   prev={prevStep}
+          //   data={formData}
+          //   updateForm={updateFormData}
+          //   // setHasUnsavedChanges={setHasUnsavedChanges}
+          // />
+          // <PhotoSlideshow selectedEffect="flip" key={Math.random()} />
+          <CustomizationPanel
+            selectedTheme={formData.selectedTheme}
+            onThemeSelect={(themeId) =>
+              updateFormData({ selectedTheme: themeId })
+            }
+            selectedAnimation={formData.selectedAnimation}
+            onAnimationSelect={(animationId) =>
+              updateFormData({ selectedAnimation: animationId })
+            }
+            videoDuration={formData.videoDuration ?? 60}
+            onDurationChange={(duration) =>
+              updateFormData({ videoDuration: duration })
+            }
           />
         );
       case 5:

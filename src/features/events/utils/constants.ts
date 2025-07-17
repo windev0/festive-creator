@@ -1,4 +1,7 @@
-import type { FormDataType, MusicLibraryYpe } from "@/features/events/utils/types";
+import type {
+  FormDataType,
+  MusicLibraryYpe,
+} from "@/features/events/utils/types";
 import {
   Cake,
   GraduationCap,
@@ -7,21 +10,31 @@ import {
   Music,
   HandHeart,
   Gamepad2,
+  ArrowRight,
+  Heart,
+  RotateCcw,
+  Smile,
+  Zap,
+  ZoomIn,
 } from "lucide-react";
 
-export const initialData: FormDataType = {
+const initialData: FormDataType = {
   title: "",
   category: "",
   duration: "",
   photos: [],
-  // music: null,
+  musicUploaded: null,
+  videoDuration: 60,
+  selectedMusicID: "",
+  selectedTheme: "elegant",
+  selectedAnimation: "zoom",
   musicUrl: "",
   recordedVoice: null,
   message: "",
   userId: "",
 };
 
-export const eventCategories = [
+const eventCategories = [
   {
     id: "personal",
     name: "Événements personnels",
@@ -94,7 +107,7 @@ export const eventCategories = [
   },
 ];
 
-export const eventTitleExamples: Record<string, string[]> = {
+const eventTitleExamples: Record<string, string[]> = {
   // 🎂 Événements personnels
   personal: [
     "Anniversaire surprise de Marie",
@@ -161,14 +174,14 @@ export const eventTitleExamples: Record<string, string[]> = {
   ],
 };
 
-export const defaultSteps = [
+const defaultSteps = [
   { id: 1, label: "Content", icon: "FileText" },
   { id: 2, label: "Design", icon: "Palette" },
   { id: 3, label: "Preview", icon: "Eye" },
   { id: 4, label: "Share", icon: "Share2" },
 ];
 
-export const musicLibrary: MusicLibraryYpe[] = [
+const musicLibrary: MusicLibraryYpe[] = [
   {
     id: "personal",
     name: "Événements personnels",
@@ -226,3 +239,109 @@ export const musicLibrary: MusicLibraryYpe[] = [
     url: "https://cdn.pixabay.com/audio/2022/10/16/audio_12b6b8b7c7.mp3", // Fun/modern party music
   },
 ];
+
+const themes = [
+  {
+    id: "elegant",
+    name: "Élégant",
+    description: "Design sophistiqué avec des transitions douces",
+    preview:
+      "https://images.unsplash.com/photo-1513475382585-d06e58bcb0e0?w=300&h=200&fit=crop",
+    colors: ["#1a1a1a", "#f5f5f5", "#d4af37"],
+  },
+  {
+    id: "playful",
+    name: "Ludique",
+    description: "Couleurs vives et animations amusantes",
+    preview:
+      "https://images.unsplash.com/photo-1530103862676-de8c9debad1d?w=300&h=200&fit=crop",
+    colors: ["#ff6b6b", "#4ecdc4", "#45b7d1"],
+  },
+  {
+    id: "romantic",
+    name: "Romantique",
+    description: "Tons pastel et effets doux",
+    preview:
+      "https://images.unsplash.com/photo-1518709268805-4e9042af2176?w=300&h=200&fit=crop",
+    colors: ["#ffc0cb", "#ffb6c1", "#f0e68c"],
+  },
+  {
+    id: "modern",
+    name: "Moderne",
+    description: "Design minimaliste et contemporain",
+    preview:
+      "https://images.unsplash.com/photo-1557804506-669a67965ba0?w=300&h=200&fit=crop",
+    colors: ["#2c3e50", "#ecf0f1", "#3498db"],
+  },
+  {
+    id: "festive",
+    name: "Festif",
+    description: "Parfait pour les célébrations",
+    preview:
+      "https://images.unsplash.com/photo-1492684223066-81342ee5ff30?w=300&h=200&fit=crop",
+    colors: ["#e74c3c", "#f39c12", "#27ae60"],
+  },
+  {
+    id: "classic",
+    name: "Classique",
+    description: "Intemporel et raffiné",
+    preview:
+      "https://images.unsplash.com/photo-1506905925346-21bda4d32df4?w=300&h=200&fit=crop",
+    colors: ["#8b4513", "#daa520", "#f5f5dc"],
+  },
+];
+
+const animations = [
+  {
+    id: "fade",
+    name: "Fondu",
+    description: "Transition en fondu entre les photos",
+    icon: Zap,
+    preview: "Doux et élégant",
+  },
+  {
+    id: "slide",
+    name: "Glissement",
+    description: "Les photos glissent de côté",
+    icon: ArrowRight,
+    preview: "Dynamique et fluide",
+  },
+  {
+    id: "zoom",
+    name: "Zoom",
+    description: "Effet de zoom sur les photos",
+    icon: ZoomIn,
+    preview: "Dramatique et captivant",
+  },
+  {
+    id: "flip",
+    name: "Retournement",
+    description: "Les photos se retournent",
+    icon: RotateCcw,
+    preview: "Ludique et original",
+  },
+  {
+    id: "bounce",
+    name: "Rebond",
+    description: "Animation avec effet de rebond",
+    icon: Smile,
+    preview: "Amusant et énergique",
+  },
+  {
+    id: "heart",
+    name: "Cœurs",
+    description: "Particules de cœurs flottants",
+    icon: Heart,
+    preview: "Romantique et tendre",
+  },
+];
+
+export {
+  initialData,
+  eventCategories,
+  eventTitleExamples,
+  defaultSteps,
+  musicLibrary,
+  themes,
+  animations,
+};

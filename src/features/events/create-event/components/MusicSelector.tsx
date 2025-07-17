@@ -23,16 +23,20 @@ type VoiceType = {
 
 type MusicSelectorProps = {
   selectedMusic: string | null;
+  uploadedMusic: File | null;
   onMusicSelect: (musicId: string) => void;
   recordedVoice: VoiceType | null;
   onVoiceRecord: (voiceData: VoiceType) => void;
+  onMusicUpload: (music: File) => void;
 };
 
 const MusicSelector = ({
   selectedMusic,
+  uploadedMusic,
   onMusicSelect,
   recordedVoice,
   onVoiceRecord,
+  onMusicUpload,
 }: MusicSelectorProps) => {
   const [isRecording, setIsRecording] = useState(false);
   const [recordingTime, setRecordingTime] = useState(0);
@@ -111,6 +115,11 @@ const MusicSelector = ({
     return `${mins}:${secs.toString().padStart(2, "0")}`;
   };
 
+  const handleUploadMusic = (e: React.ChangeEvent<HTMLInputElement>) => {
+    if (e.target.files?.[0]) {
+      onMusicUpload(e.target.files[0]);
+    }
+  };
   return (
     <div className="space-y-6 mx-3 ">
       <div className="text-center">
@@ -130,7 +139,7 @@ const MusicSelector = ({
         </h3>
 
         <div className="flex items-center justify-between">
-          <div className="flex items-center space-x-4">
+          <div className="flex max-sm:flex-col max-sm:mt-3 items-center space-x-4">
             {!isRecording ? (
               <Button
                 variant="outline"
@@ -226,12 +235,12 @@ const MusicSelector = ({
                 </button>
 
                 <div className="mr-4">
-                    <h4
+                  <h4
                     className="font-medium text-foreground  max-w-[120px] "
                     title={track.name}
-                    >
+                  >
                     {track.name}
-                    </h4>
+                  </h4>
                   <p className="text-sm text-muted-foreground">
                     {track.artist} • {track.duration}
                   </p>
@@ -286,22 +295,38 @@ const MusicSelector = ({
               variant="outline"
               size="sm"
               className="hover:bg-indigo-200 cursor-pointer "
-              //   iconName="Upload"
-              //   iconPosition="left"
             >
               <span className="flex justify-center items-center gap-1">
                 <UploadIcon />
-                <audio
-                  controls
-                  src={
-                    musicLibrary.find((music) => music.id === selectedMusic)
-                      ?.url
-                  }
-                  className="w-full"
-                />
-                Télécharger un fichier
+                <label className="cursor-pointer">
+                  <input
+                    type="file"
+                    accept="audio/*"
+                    onChange={handleUploadMusic}
+                    className="hidden"
+                  />
+                  Télécharger un fichier audio
+                </label>
               </span>
             </Button>
+
+            {uploadedMusic && (
+              <div className="mt-3">
+                <span className="text-sm font-medium text-foreground">
+                  Fichier téléchargé :
+                </span>
+                <span className="text-sm text-muted-foreground ml-2">
+                  {uploadedMusic.name}
+                </span>
+                <audio
+                  controls
+                  src={URL.createObjectURL(uploadedMusic)}
+                  className="w-full mt-2"
+                >
+                  Votre navigateur ne supporte pas la lecture audio.
+                </audio>
+              </div>
+            )}
           </div>
         </div>
       </div>
