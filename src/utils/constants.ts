@@ -7,7 +7,7 @@ const ROUTES = {
   AUTH_CALLBACK: "/auth/callback",
   WAITING_VERIFICATION: "/waiting-verification",
   CREATE_EVENT: "/create-event",
-  VIDEO_PREVIEW_PAGE: "/video_preview",
+  EVENT_PREVIEW_PAGE: "/event-preview",
   EVENT_SHARED: "/events/shared/:id",
   EVENTS: "/events",
   NOT_FOUND: "/404",

@@ -320,7 +320,11 @@ const MusicSelector = ({
                 </span>
                 <audio
                   controls
-                  src={URL.createObjectURL(uploadedMusic)}
+                  src={
+                    uploadedMusic
+                      ? URL.createObjectURL(uploadedMusic ?? "")
+                      : undefined
+                  }
                   className="w-full mt-2"
                 >
                   Votre navigateur ne supporte pas la lecture audio.

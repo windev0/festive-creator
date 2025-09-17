@@ -13,9 +13,9 @@ import WaitingVerificationPage from "@/auth/pages/WaitingVerification.page.tsx";
 import { Toaster } from "sonner";
 import ProtectedRoute from "@/components/ProtectedRoutes.tsx";
 import HomePage from "@/features/home/pages/Home.page.tsx";
-import VideoPreviewPage from "@/features/event/pages/VideoPreviewPage.tsx";
 import ViewEventPage from "@/features/event/pages/ViewEvent.page.tsx";
 import CreateEventPage from "@/features/events/create-event/pages/CreateEventPage.tsx";
+import EventPreviewPage from "@/features/events/create-event/pages/EventPreviewPage.tsx";
 
 const queryClient = new QueryClient();
 
@@ -25,6 +25,7 @@ createRoot(document.getElementById("root")!).render(
       <Router>
         <Routes>
           {/* Public routes */}
+
           <Route path={ROUTES.LOGIN} element={<LoginPage />} />
           <Route path={ROUTES.REGISTER} element={<RegisterPage />} />
           <Route path={ROUTES.VERIFY} element={<VerificationPage />} />
@@ -51,16 +52,15 @@ createRoot(document.getElementById("root")!).render(
             path={ROUTES.CREATE_EVENT}
             element={
               <ProtectedRoute>
-                {/* <CreateEventForm /> */}
                 <CreateEventPage />
               </ProtectedRoute>
             }
           />
           <Route
-            path={ROUTES.VIDEO_PREVIEW_PAGE}
+            path={ROUTES.EVENT_PREVIEW_PAGE}
             element={
               <ProtectedRoute>
-                <VideoPreviewPage />
+                <EventPreviewPage />
               </ProtectedRoute>
             }
           />

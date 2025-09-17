@@ -5,13 +5,28 @@ import { ClockIcon, SaveIcon } from "lucide-react";
 import { Button } from "@/components/ui/button";
 
 const MainLayout = React.lazy(() => import("@/layouts/MainLayout"));
-const ProgressIndicator = React.lazy(() => import("@/features/events/create-event/components/ProgressIndicator"));
-const MusicSelector = React.lazy(() => import("@/features/events/create-event/components/MusicSelector"));
-const WizardNavigation = React.lazy(() => import("@/features/events/create-event/components/WizardNavigation"));
-const EventCategorySelector = React.lazy(() => import("@/features/events/create-event/components/EventCategorySelector"));
-const PhotoUploader = React.lazy(() => import("@/features/events/create-event/components/PhotoUploder"));
-const CustomizationPanel = React.lazy(() => import("@/features/events/create-event/components/CustomizationPanel"));
-const MessageComposer = React.lazy(() => import("@/features/events/create-event/components/MessageComposer"));
+const ProgressIndicator = React.lazy(
+  () => import("@/features/events/create-event/components/ProgressIndicator")
+);
+const MusicSelector = React.lazy(
+  () => import("@/features/events/create-event/components/MusicSelector")
+);
+const WizardNavigation = React.lazy(
+  () => import("@/features/events/create-event/components/WizardNavigation")
+);
+const EventCategorySelector = React.lazy(
+  () =>
+    import("@/features/events/create-event/components/EventCategorySelector")
+);
+const PhotoUploader = React.lazy(
+  () => import("@/features/events/create-event/components/PhotoUploder")
+);
+const CustomizationPanel = React.lazy(
+  () => import("@/features/events/create-event/components/CustomizationPanel")
+);
+const MessageComposer = React.lazy(
+  () => import("@/features/events/create-event/components/MessageComposer")
+);
 
 import { customToastMsg, getFileUniqueName } from "@/utils/functions";
 import type { FormDataType } from "@/features/events/utils/types";
@@ -103,13 +118,13 @@ const CreateEventPage = () => {
 
   const handleFinish = () => {
     // Clear draft and navigate to video generation
-    localStorage.removeItem("cardCreationDraft");
-    navigate("/video-preview", {
+    navigate("/event-preview", {
       state: {
         cardData: formData,
         isNewCard: true,
       },
     });
+    localStorage.removeItem("cardCreationDraft");
   };
 
   const handleExit = () => {
@@ -352,14 +367,20 @@ const CreateEventPage = () => {
               size="sm"
               // iconName="Eye"
               // iconPosition="left"
-              onClick={() =>
-                navigate("/video-preview", {
+              onClick={() => {
+                localStorage.setItem(
+                  "formData",
+                  JSON.stringify({
+                    formData,
+                  })
+                );
+                navigate("/event-preview", {
                   state: {
                     cardData: formData,
                     isPreview: true,
                   },
-                })
-              }
+                });
+              }}
               disabled={!isStepValid()}
             >
               Aperçu rapide

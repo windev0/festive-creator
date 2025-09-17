@@ -55,7 +55,7 @@ const Step5 = ({ prev, data }: Props) => {
         description: "Vous pouvez visualiser cet évènement.",
       });
       // navigate(ROUTES.APP);
-      navigate(ROUTES.VIDEO_PREVIEW_PAGE, {state:{...data}});
+      navigate(ROUTES.EVENT_PREVIEW_PAGE, { state: { data } });
     } catch (error: any) {
       console.error("Error on event creation" + error?.message, error);
     }
