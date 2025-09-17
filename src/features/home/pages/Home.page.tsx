@@ -1,38 +1,16 @@
 import { Button } from "@/components/ui/button";
 import { useNavigate } from "react-router-dom";
-import MainLayout from "@/layouts/MainLayout";
 import { ROUTES } from "@/utils/constants";
+import Navbar from "@/components/NavBar";
 
 const HomePage = () => {
   const navigate = useNavigate();
-  // useEffect(() => {
-  //   try {
-  //     account
-  //       .get()
-  //       .then((value) => {
-  //         value?.$id &&
-  //           window.localStorage.setItem("user", JSON.stringify(value));
-  //       })
-  //       .catch(() => console.error("Effor fetching user"));
-  //   } catch (error: any) {
-  //     // Si l'erreur indique qu'il n'y a pas de session active, on continue quand même
-  //     if (
-  //       error?.type === "general_unauthorized_scope" ||
-  //       error?.type === "user_session_not_found"
-  //     ) {
-  //       console.warn("Aucune session active à supprimer, on continue.");
-  //     } else {
-  //       console.error(
-  //         "Erreur inattendue lors de la suppression des sessions :",
-  //         error
-  //       );
-  //       // ⚠️ Tu peux décider ici de continuer quand même, ou non
-  //     }
-  //   }
-  // }, []);
 
   return (
-    <MainLayout>
+    <>
+      <header>
+        <Navbar />
+      </header>
       <div className="bg-blue-50 min-h-screen">
         {/* Hero Section */}
         <section className="px-6 py-12 max-w-7xl mx-auto grid grid-cols-1 md:grid-cols-2 gap-8 items-center">
@@ -111,7 +89,7 @@ const HomePage = () => {
           </div>
         </section>
       </div>
-    </MainLayout>
+    </>
   );
 };
 
