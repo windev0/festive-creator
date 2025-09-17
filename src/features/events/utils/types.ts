@@ -26,3 +26,21 @@ export type MusicLibraryYpe = {
   category: string;
   url: string;
 };
+
+
+export interface IEvent {
+  title: string;
+  category: string;
+  duration: string;
+  message: string;
+  musicId: string;
+  photoIds: string[];
+  userId: string;
+  $id: string;
+  $sequence: string;
+  $createdAt: string;
+  $updatedAt: string;
+  $permissions: string[];
+  $databaseId: string;
+  $collectionId: string;
+}

@@ -1,4 +1,4 @@
-import type { IEvent } from "@/features/event/utils/types";
+import type { IEvent } from "@/features/events/utils/types";
 import {
   eventCollectionId,
   databaseId,

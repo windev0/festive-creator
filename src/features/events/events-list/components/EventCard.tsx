@@ -7,7 +7,7 @@ import {
 } from "@/components/ui/menubar";
 
 import { getFileUrl } from "@/features/events/services/event.service";
-import type { IEvent } from "@/features/event/utils/types";
+import type { IEvent } from "@/features/events/utils/types";
 import { ROUTES } from "@/utils/constants";
 import { customToastMsg } from "@/utils/functions";
 import { MenubarTrigger } from "@radix-ui/react-menubar";
