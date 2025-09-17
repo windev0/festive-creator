@@ -91,7 +91,7 @@ const Navbar = () => {
               {isVerified && (
                 <span
                   onClick={() => navigate(ROUTES.EVENTS)}
-                  className="text-sm text-white font-bold"
+                  className="text-sm text-white font-bold cursor-pointer underline"
                 >
                   Dashboard
                 </span>

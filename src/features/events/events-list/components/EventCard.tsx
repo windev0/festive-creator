@@ -6,12 +6,16 @@ import {
   MenubarSeparator,
 } from "@/components/ui/menubar";
 
-import { getFileUrl } from "@/features/event/services/event.service";
+import { getFileUrl } from "@/features/events/services/event.service";
 import type { IEvent } from "@/features/event/utils/types";
+import { ROUTES } from "@/utils/constants";
 import { customToastMsg } from "@/utils/functions";
 import { MenubarTrigger } from "@radix-ui/react-menubar";
+import { useNavigate } from "react-router-dom";
 
 const EventCard = ({ event }: { event: IEvent }) => {
+  const navigate = useNavigate();
+
   const handleShareLink = async () => {
     const publicUrl = `${import.meta.env.VITE_BASE_URL}/events/shared/${
       event.$id
@@ -30,6 +34,10 @@ const EventCard = ({ event }: { event: IEvent }) => {
   };
   const handleDeleteEvent = () => {
     return;
+  };
+
+  const handleViewEvent = () => {
+    navigate(`${ROUTES.EVENTS}/${event.$id}`);
   };
   return (
     <div className=" from-pink-50 to-white rounded-2xl shadow-lg p-8 mb-8 max-w-md w-full border cursor-pointer border-pink-100 transition-transform hover:scale-105">
@@ -58,6 +66,12 @@ const EventCard = ({ event }: { event: IEvent }) => {
                   onClick={handleDeleteEvent}
                 >
                   Supprimer
+                </MenubarItem>
+                <MenubarItem
+                  className="cursor-pointer"
+                  onClick={handleViewEvent}
+                >
+                  Voir
                 </MenubarItem>
               </MenubarContent>
             </MenubarMenu>

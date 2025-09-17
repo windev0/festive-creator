@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
-import { getEvents } from "@/features/event/services/event.service";
+import { getEvents } from "@/features/events/services/event.service";
 import type { IEvent } from "@/features/event/utils/types";
-import EventCard from "@/features/event/components/EventCard";
+import EventCard from "@/features/events/events-list/components/EventCard";
 
 const EventListPage = () => {
   const [events, setEvents] = useState<IEvent[]>([]);

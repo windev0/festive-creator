@@ -1,4 +1,4 @@
-import EventListPage from "@/features/event/pages/EventList.page";
+import EventListPage from "@/features/events/events-list/pages/EventList.page";
 import MainLayout from "@/layouts/MainLayout";
 
 function App() {

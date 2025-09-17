@@ -9,7 +9,7 @@ import {
   likeComment,
   postComment,
   replyComment,
-} from "@/features/event/services/event.service";
+} from "@/features/events/services/event.service";
 import MainLayout from "@/layouts/MainLayout";
 import { useState } from "react";
 import { Input } from "@/components/ui/input"; // Si tu utilises shadcn/ui

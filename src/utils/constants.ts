@@ -9,6 +9,7 @@ const ROUTES = {
   CREATE_EVENT: "/create-event",
   EVENT_PREVIEW_PAGE: "/event-preview",
   EVENT_SHARED: "/events/shared/:id",
+  VIEW_EVENT: "/events/:id",
   EVENTS: "/events",
   NOT_FOUND: "/404",
 };
